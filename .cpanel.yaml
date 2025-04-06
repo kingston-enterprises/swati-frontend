@@ -1,0 +1,15 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/swatini/public_html/frontend
+    - /opt/cpanel/ea-nodejs18/bin/node --version # Check Node.js version (adjust path if needed)
+    - /opt/cpanel/ea-npm/bin/npm --version    # Check npm version (adjust path if needed)
+    - cd $DEPLOYPATH
+    - /opt/cpanel/ea-npm/bin/npm install        # Install dependencies
+    - /opt/cpanel/ea-npm/bin/npm run build      # Build your React Vite app (adjust build script if needed)
+    - rm -rf $DEPLOYPATH/* # Remove existing files (optional, be careful!)
+    - cp -r $DEPLOYPATH/dist/* $DEPLOYPATH/     # Copy built files to the root of your deployment path
+    - rm -rf $DEPLOYPATH/dist                  # Remove the 'dist' folder (optional)
+  hooks:
+    after:deploy:
+      - echo "React Vite app deployed successfully!"
