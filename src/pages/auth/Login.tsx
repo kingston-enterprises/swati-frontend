@@ -9,6 +9,8 @@ import useNavigation from "@/hooks/useNavigation";
 import { useToast } from "@/hooks/use-toast";
 import { login } from "@/features/auth/authSlice";
 import Loader from "@/components/custom/Loader";
+import Input from "@/components/Input"; 
+import Button from "@/components/Button"; 
 
 type Props = {};
 
@@ -16,6 +18,7 @@ export const Login = ({}: Props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
  
   const [, setFormData] = useState({
     phoneNumber: "",
@@ -64,6 +67,10 @@ useEffect(() => {
     };
     dispatch(login(userData));
   };
+  
+    const handleCancel = () => {
+    navigateTo("/");
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -95,71 +102,102 @@ useEffect(() => {
                 action="#"
               >
                 {/* Phone number */}
-                <div>
-                  <label
-                    htmlFor="phone-input"
-                    className="mb-2 text-sm font-medium text-white"
-                  >
-                    Phone number:
-                  </label>
-                  <PhoneInput
-                    value={phoneNumber}
-                    onChange={(e) => {
-                      setPhoneNumber(e);
-                    }}
-                    defaultCountry="SZ"
-                    placeholder="Enter a phone number"
-                  />
-                </div>
+                 <div>
+                <label
+                  htmlFor="phone-input"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Phone number
+                </label>
+                <PhoneInput
+                  className="transition-colors duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed rounded-full inline-flex items-center w-full bg-primary-accent focus:ring-primary focus:border-primary text-primary"
+                  value={phoneNumber}
+                  onChange={setPhoneNumber}
+                  defaultCountry="SZ"
+                  placeholder="Enter a phone number"
+                />
+              </div>
 
                 {/* Password */}
                 <div>
-                  <label
-                    htmlFor="phone-input"
-                    className="mb-2 text-sm font-medium text-white"
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Password
+                </label>
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password"
+                    variant="primary"
+                    rounded="full"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400"
                   >
-                    Password:
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full px-4 py-2 bg-white text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Enter password"
-                      aria-label="Password"
-                    />
-                    <button
-                      type="button"
-                      onClick={togglePasswordVisibility}
-                      className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600"
-                      aria-label={
-                        showPassword ? "Hide password" : "Show password"
-                      }
-                    >
-                      {showPassword ? (
-                        <EyeOffIcon className="w-5 h-5" />
-                      ) : (
-                        <EyeIcon className="w-5 h-5" />
-                      )}
-                    </button>
-                  </div>
+                    {showPassword ? (
+                      <EyeOffIcon className="w-5 h-5" />
+                    ) : (
+                      <EyeIcon className="w-5 h-5" />
+                    )}
+                  </button>
                 </div>
+                </div>
+                
+                <div className="flex items-start">
+                <input
+                  id="terms"
+                  type="checkbox"
+                  className="w-4 h-4 border border-gray-300 rounded bg-gray-700 focus:ring-3 focus:ring-accent"
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                  required
+                />
+                <label
+                  htmlFor="terms"
+                  className="ml-2 text-sm font-light text-gray-300"
+                >
+                  I accept the{" "}
+                  <a
+                    href="/terms"
+                    className="font-medium text-accent hover:underline"
+                  >
+                    Terms and Conditions
+                  </a>{" "}
+                  and the{" "}
+                  <a
+                    href="/privacy"
+                    className="font-medium text-accent hover:underline"
+                  >
+                    Privacy Policy
+                  </a>
+                </label>
+              </div>
 
                  <div className="flex gap-4">
-                <button
+                <Button
                   type="button"
-                  onClick={() => navigate('/')}
-                  className="flex-1 text-white bg-secondary hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors"
+                  onClick={handleCancel}
+                  variant="secondary-outline"
+                  rounded="full"
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                   type="submit"
-                  className="flex-1 text-white bg-secondary hover:bg-accent/80 focus:ring-4 focus:outline-none focus:ring-accent/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors"
+                  disabled={!termsAccepted}
+                  variant="secondary"
+                  rounded="full"
                 >
-                  Sign In
-                </button>
+                  Sign Up
+                </Button>
               </div>
 
                 {/* <button

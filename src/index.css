@@ -4,21 +4,23 @@
 @import "tailwindcss";
 
 @theme {
+  /* Basic black and white adjusted to theme */
+  --color-white: #ffffff;
+  --color-black: #07121a;
 
-  --color-primary-accent: #fff3e9; /* Closest to the lighter peach */
-  --color-secondary-accent: #ffd6b6; /* Other light peach */
+
+  --color-primary-accent: #FFF3E9; /* Closest to the lighter peach */
+  --color-secondary-accent: #FFBA85; /* Other light peach */
 
   /* Primary Dark Color (deep maroon) */
   --color-primary: #5c2626;
 
   /* Secondary Accent Color (light orange/peach) */
-  --color-secondary: #ffb983;
+  --color-secondary: #ffd6b6;
 
   /* Darker Maroon */
   --color-tetiary: #803535;
 
-  /* Very Dark Brown/Black */
-  --color-very-dark: #381717;
 
   /* Text color (defaulting to a dark color for readability on light backgrounds) */
   --color-text-color: var(--color-very-dark);
@@ -31,4 +33,14 @@
   --color-background-color: var(--color-primary-accent);
 }
 
+/* Base layout styling */
+@layer base {
+  html, body, #root {
+    @apply min-h-screen w-full bg-primary text-primary-accent m-0 p-0;
+  }
+
+  body.overflow-hidden {
+    overflow: hidden;
+  }
+}
 

@@ -1,37 +1,126 @@
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Or your framework's routing
+import Input from '@/components/Input'; // Assuming your custom Input component
+import Button from '@/components/Button'; // Assuming your custom Button component
+import { PhoneInput } from '@/components/custom/PhoneInput'; // Assuming your custom PhoneInput component
+import { useSelector } from "react-redux";
+import { formatDate } from "@/lib/utils";
+import person from "@/assets/person.svg";
 
-export const Profile: React.FC = () => {
+const Profile = () => {
+ 
+  const { user } = useSelector((state : any) => state.auth);
+
+  const [firstName, setFirstName] = useState(user.first_name);
+  const [lastName, setLastName] = useState(user.last_name);
+  const [profilePicture, setProfilePicture] = useState('/default-profile.png'); // Placeholder
+  const [gender, setGender] = useState(user.gender);
+  const [dateOfBirth, setDateOfBirth] = useState(user.date_of_birth);
+  const [address, setAddress] = useState(user.address);
+  const [email, setEmail] = useState(user.email);
+  const [phoneNumber, setPhoneNumber] = useState(user.phone_number); // Example Eswatini number
+  const [privacySetting, setPrivacySetting] = useState('Public');
+
+  const handleSave = () => {
+    // Implement your save logic here
+    console.log('Saving profile changes...');
+    console.log({ firstName, lastName, gender, dateOfBirth, address, email, phoneNumber, privacySetting });
+    // You would typically make an API call to update the user's data
+  };
+
+
+
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <h1 className="text-3xl font-bold mb-6">My Profile</h1>
-
-      <Card className="mb-6 rounded-2xl shadow p-6 max-w-xl">
-        <CardContent>
-          <h2 className="text-xl font-semibold mb-4">User Details</h2>
-          <div className="space-y-4">
-            <Input label="First Name" defaultValue="John" readOnly />
-            <Input label="Last Name" defaultValue="Doe" readOnly />
-            <Input label="Email" defaultValue="john.doe@example.com" readOnly />
-            <Input label="Phone Number" defaultValue="+1234567890" readOnly />
+    <div className="min-h-screen bg-primary p-4">
+      <div className="container mx-auto max-w-xl bg-white shadow-md rounded-lg overflow-hidden">
+        {/* Header */}
+        <div className="bg-secondary py-6 px-4 border-b border-primary-accent text-center">
+          <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white shadow-md">
+            <img src={person} alt="Profile Picture" className="object-cover w-full h-full" />
+            <label htmlFor="profile-picture-upload" className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+            </label>
+            <input type="file" id="profile-picture-upload" className="hidden" onChange={(e) => { /* Handle image upload */ }} />
           </div>
-        </CardContent>
-      </Card>
+          <h2 className="text-xl font-semibold mt-2">{`${user.first_name} ${user.last_name}`}</h2>
+          <p className="text-gray-600 text-sm">{`Member since ${formatDate(user.createdAt)}`}</p> {/* Example */}
+        </div>
 
-      <Card className="rounded-2xl shadow p-6 max-w-xl">
-        <CardContent>
-          <h2 className="text-xl font-semibold mb-4">Update Password</h2>
-          <form className="space-y-4">
-            <Input type="password" placeholder="Current Password" />
-            <Input type="password" placeholder="New Password" />
-            <Input type="password" placeholder="Confirm New Password" />
-            <Button type="submit" className="w-full">Update Password</Button>
-          </form>
-        </CardContent>
-      </Card>
+        {/* Personal Details */}
+        <div className="p-6 border-b border-gray-300">
+          <h3 className="text-lg font-semibold text-gray-700 mb-4">Personal Details</h3>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
+              <Input type="text" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} variant="primary" rounded="md" />
+            </div>
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
+              <Input type="text" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} variant="primary" rounded="md" />
+            </div>
+            <div>
+              <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</label>
+              <select id="gender" value={gender} onChange={(e) => setGender(e.target.value)} className="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-accent focus:border-accent text-gray-700 sm:text-sm">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Rather Not Say</option>
+              </select>
+            </div>
+            <div>
+              <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700">Date of Birth</label>
+              <Input type="date" id="dateOfBirth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} variant="primary" rounded="md" />
+            </div>
+          </div>
+        </div>
+
+        {/* Address */}
+        <div className="p-6 border-b border-gray-300">
+          <h3 className="text-lg font-semibold text-gray-700 mb-4">Address</h3>
+          <div>
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
+            <Input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} variant="primary" rounded="md" />
+          </div>
+        </div>
+
+        {/* Contact Details */}
+        <div className="p-6 border-b border-gray-300">
+          <h3 className="text-lg font-semibold text-gray-700 mb-4">Contact Details</h3>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <Input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} variant="primary" rounded="md" />
+            </div>
+            <div>
+              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number</label>
+              <PhoneInput value={phoneNumber} onChange={setPhoneNumber} variant="primary" rounded="md" />
+            </div>
+          </div>
+        </div>
+
+        {/* Privacy Settings */}
+        <div className="p-6">
+          <h3 className="text-lg font-semibold text-gray-700 mb-4">Privacy Settings</h3>
+          <div>
+            <label htmlFor="privacy" className="block text-sm font-medium text-gray-700">Profile Visibility</label>
+            <select id="privacy" value={privacySetting} onChange={(e) => setPrivacySetting(e.target.value)} className="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-accent focus:border-accent text-gray-700 sm:text-sm">
+              <option>Public</option>
+              <option>Friends Only</option>
+              <option>Private</option>
+            </select>
+            <p className="text-sm text-gray-500 mt-2">Control who can see your profile information.</p>
+          </div>
+        </div>
+
+        {/* Save Button */}
+        <div className="py-4 px-6 bg-gray-200 border-t border-gray-300 text-right">
+          <Button onClick={handleSave} variant="secondary" rounded="md">Save Changes</Button>
+          <Link to="/dashboard" className="inline-block ml-2">
+            <Button variant="outline" rounded="md">Cancel</Button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
 
+export default Profile;

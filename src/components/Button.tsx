@@ -1,33 +1,102 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 interface ButtonProps {
-  onClick: () => void;
-  text: string;
-  className?: string; // Optional: allows adding Tailwind classes
-  type?: 'button' | 'submit' | 'reset'; 
+  children: ReactNode;
+  onClick?: () => void;
+  className?: string;
+  iconLeft?: ReactNode;
+  iconRight?: ReactNode;
+  rounded?: 'sm' | 'md' | 'lg' | 'full' | undefined;
+  variant?: 'primary' | 'secondary' | 'primary-outline' | 'secondary-outline' | 'text'; // Example variants
+  size?: 'sm' | 'md' | 'lg' | undefined;
+  disabled?: boolean;
+  // Add other relevant props as needed
 }
 
-export const ButtonPrimary: React.FC<ButtonProps> = ({ onClick, text, className = '', type = 'button' }) => {
+const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  className = '',
+  iconLeft,
+  iconRight,
+  rounded = 'md',
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  ...rest
+}) => {
+  // Base button styles
+  let baseStyles = `
+    font-bold
+    transition-colors
+    duration-200
+    focus:outline-none
+    disabled:text-primary-accent
+    disabled:opacity-10
+    disabled:cursor-not-allowed
+    ${rounded ? `rounded-${rounded}` : 'rounded-md'}
+    ${className}
+    inline-flex
+    items-center
+    justify-center
+    w-full
+  `;
+
+  // Variant-specific styles
+  let variantStyles = '';
+  switch (variant) {
+    case 'primary':
+      variantStyles = 'bg-primary hover:bg-secondary text-primary-accent';
+      break;
+    case 'secondary':
+      variantStyles = 'bg-secondary hover:bg-primary text-primary-accent hover:text-primary-accent';
+      break;
+    case 'primary-outline':
+      variantStyles = 'border border-primary hover:bg-primary text-primary hover:text-primary-accent';
+      break;
+    case 'secondary-outline':
+      variantStyles = 'border border-secondary hover:bg-secondary text-secondary hover:text-primary';
+      break;
+    case 'primary-text':
+      variantStyles = 'text-primary hover:text-secondary';
+      break;
+    case 'secondary-text':
+      variantStyles = 'text-secondary hover:text-primary';
+      break;
+    default:
+      variantStyles = 'bg-primary hover:bg-secondary text-primary-accent';
+  }
+
+  // Size-specific styles
+  let sizeStyles = '';
+  switch (size) {
+    case 'sm':
+      sizeStyles = 'py-1 px-2 text-sm';
+      break;
+    case 'md':
+      sizeStyles = 'py-2 px-4 text-base';
+      break;
+    case 'lg':
+      sizeStyles = 'py-3 px-6 text-lg';
+      break;
+    default:
+      sizeStyles = 'py-2 px-4 text-base';
+  }
+
+  const iconSpacing = children && (iconLeft || iconRight) ? 'ml-2 mr-2' : '';
+
   return (
     <button
-      type={type} // Use the type prop
       onClick={onClick}
-      className={`px-6 py-2 min-w-[120px] text-center text-white bg-primary border border-primary rounded active:text-violet-500 hover:bg-transparent hover:text-primary focus:outline-none focus:ring ${className}`}
+      className={`${baseStyles} ${variantStyles} ${sizeStyles} ${iconSpacing}`}
+      disabled={disabled}
+      {...rest}
     >
-      {text}
+      {iconLeft && <span className="inline-flex items-center">{iconLeft}</span>}
+      {children}
+      {iconRight && <span className="inline-flex items-center">{iconRight}</span>}
     </button>
   );
 };
 
-export const ButtonSecondary: React.FC<ButtonProps> = ({ onClick, text, className = '', type = 'button' }) => {
-  return (
-    <button
-      type={type} // Use the type prop
-      onClick={onClick}
-      className={`px-6 py-2 min-w-[120px] text-center text-primary border border-primary rounded hover:bg-primary hover:text-white active:bg-indigo-500 focus:outline-none focus:ring ${className}`}
-    >
-      {text}
-    </button>
-  );
-};
-
+export default Button;

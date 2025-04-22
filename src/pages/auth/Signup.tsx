@@ -6,19 +6,19 @@ import { register } from "@/features/auth/authSlice";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch, useSelector } from "react-redux";
 import useNavigation from "@/hooks/useNavigation";
-import Loader  from "@/components/custom/Loader";
-import { ButtonPrimary, ButtonSecondary } from "@/components/Button";
-
+import Loader from "@/components/custom/Loader";
+import Input from "@/components/Input"; 
+import Button from "@/components/Button"; 
 
 export const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const dispatch = useDispatch();
   const { navigateTo } = useNavigation();
@@ -44,7 +44,7 @@ export const SignUp = () => {
         description: "Sign Up successful",
       });
     }
-  }, [user, isError, message]);
+  }, [user, isError, message, navigateTo, toast]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,16 +55,20 @@ export const SignUp = () => {
         title: "Uh oh! Passwords don't match",
         description: "Please confirm your password",
       });
+    } else if (!termsAccepted) {
+      toast({
+        variant: "destructive",
+        title: "Terms not accepted",
+        description: "Please accept the Terms and Conditions and Privacy Policy.",
+      });
     } else {
       const userData = {
         first_name: firstName,
         last_name: lastName,
         email: email,
-
         phone_number: phoneNumber,
         password: password,
       };
-
       dispatch(register(userData));
     }
   };
@@ -105,14 +109,15 @@ export const SignUp = () => {
                   >
                     First Name
                   </label>
-                  <input
+                  <Input
                     type="text"
                     name="first_name"
                     id="first_name"
-                    className="w-full p-2.5 bg-gray-100 border border-gray-600 text-black text-sm rounded-lg focus:ring-accent focus:border-accent"
-                    // placeholder="First Name"
+                    placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
+                    variant="primary" 
+                    rounded="full"
                     required
                   />
                 </div>
@@ -123,38 +128,39 @@ export const SignUp = () => {
                   >
                     Last Name
                   </label>
-                  <input
+                  <Input
                     type="text"
                     name="last_name"
                     id="last_name"
-                    className="w-full p-2.5 bg-gray-100 border border-gray-600 text-black text-sm rounded-lg focus:ring-accent focus:border-accent"
-                    // placeholder="Last Name"
+                    placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
+                    variant="primary" 
+                    rounded="full"
                     required
                   />
                 </div>
               </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-white"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    className="w-full p-2.5 bg-gray-100 border border-gray-600 text-black text-sm rounded-lg focus:ring-accent focus:border-accent"
-                    // placeholder="First Name"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-white"
+                >
+                  Email
+                </label>
+                <Input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  variant="primary" 
+                  rounded="full"
+                  required
+                />
+              </div>
 
               <div>
                 <label
@@ -164,6 +170,7 @@ export const SignUp = () => {
                   Phone number
                 </label>
                 <PhoneInput
+                  className="transition-colors duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed rounded-full inline-flex items-center w-full bg-primary-accent focus:ring-primary focus:border-primary text-primary"
                   value={phoneNumber}
                   onChange={setPhoneNumber}
                   defaultCountry="SZ"
@@ -179,13 +186,14 @@ export const SignUp = () => {
                   Password
                 </label>
                 <div className="relative">
-                  <input
+                  <Input
                     type={showPassword ? "text" : "password"}
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full p-2.5 bg-gray-100 border border-gray-600 text-black text-sm rounded-lg focus:ring-accent focus:border-accent"
-                    // placeholder="Enter password"
+                    placeholder="Enter password"
+                    variant="primary"
+                    rounded="full"
                     required
                   />
                   <button
@@ -210,13 +218,14 @@ export const SignUp = () => {
                   Confirm Password
                 </label>
                 <div className="relative">
-                  <input
+                  <Input
                     type={showPassword ? "text" : "password"}
                     id="confirm-password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full p-2.5 bg-gray-100 border border-gray-600 text-black text-sm rounded-lg focus:ring-accent focus:border-accent"
                     placeholder="Confirm password"
+                    variant="primary"
+                    rounded="full"
                     required
                   />
                 </div>
@@ -227,6 +236,8 @@ export const SignUp = () => {
                   id="terms"
                   type="checkbox"
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-700 focus:ring-3 focus:ring-accent"
+                  checked={termsAccepted}
+                  onChange={(e) => setTermsAccepted(e.target.checked)}
                   required
                 />
                 <label
@@ -250,21 +261,25 @@ export const SignUp = () => {
                 </label>
               </div>
 
- <div className="flex gap-4">
-                <button
+              <div className="flex gap-4">
+                <Button
                   type="button"
                   onClick={handleCancel}
-                  className="flex-1 text-white bg-secondary  hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors"
+                  variant="secondary-outline"
+                  rounded="full"
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
                   type="submit"
-                  className="flex-1 text-white bg-secondary hover:bg-accent/80 focus:ring-4 focus:outline-none focus:ring-accent/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-colors"
+                  disabled={!termsAccepted}
+                  variant="secondary"
+                  rounded="full"
                 >
                   Sign Up
-                </button>
-              </div>            </form>
+                </Button>
+              </div>
+            </form>
             <p className="text-sm font-light text-secondary text-center">
               Already have an account?{" "}
               <a
@@ -280,4 +295,3 @@ export const SignUp = () => {
     </section>
   );
 };
-

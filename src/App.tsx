@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Home } from '@/pages/Home';
+import Home from '@/pages/Home';
+import TopRibbon from '@/components/custom/TopRibbon';
 import { Login } from '@/pages/auth/Login';
 import { SignUp } from '@/pages/auth/Signup';
 import { Navbar } from '@/components/Navbar';
-import { Dashboard } from '@/pages/dashboard/Dashboard';
-import { Profile } from '@/pages/dashboard/Profile';
+import Dashboard from '@/pages/dashboard/Dashboard';
+import Profile from '@/pages/dashboard/Profile';
+import Items from '@/pages/dashboard/Items';
 import { RootState } from './api/store/store';
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
@@ -27,6 +29,7 @@ console.log("User from Redux:", user);
 
   return (
     <>
+      <TopRibbon />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -47,7 +50,7 @@ console.log("User from Redux:", user);
           }
         />
         <Route
-          path="/profile"
+          path="/dashboard/profile"
           element={
             <PrivateRoute>
               <Profile />
@@ -62,7 +65,15 @@ console.log("User from Redux:", user);
             </PrivateRoute>
           }
         />
-        {/* Add other protected or public routes as needed */}
+        <Route
+          path="/dashboard/items"
+          element={
+            <PrivateRoute>
+              <Items />
+            </PrivateRoute>
+          }
+        />
+ 
       </Routes>
     </>
   );

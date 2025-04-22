@@ -1,86 +1,87 @@
-import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart, Package, User, Upload, MessageSquare } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import React from 'react';
+import { Link } from 'react-router-dom'; // Or your framework's routing
 
-export const Dashboard: React.FC = () => {
+const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <h1 className="text-3xl font-bold mb-6">User Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <Card className="rounded-2xl shadow p-4">
-          <CardContent className="flex flex-col items-center text-center">
-            <User className="h-10 w-10 text-blue-600 mb-2" />
-            <h2 className="text-xl font-semibold">Profile</h2>
-            <p className="text-gray-600">View and update your personal details</p>
-            <a href='/profile' className="mt-4 w-full">Go to Profile</a>
-          </CardContent>
-        </Card>
+    <div className="min-h-screen bg-gray-100 flex">
+      {/* Sidebar */}
+      <aside className="bg-primary w-64 p-4 shadow-md hidden md:block">
+        <h2 className="text-xl font-semibold mb-4">Dashboard Menu</h2>
+        <nav className="space-y-2">
+          <Link to="/dashboard/profile" className="block py-2 px-4 rounded hover:bg-gray-200">My Items</Link>
+          <Link to="/dashboard/items" className="block py-2 px-4 rounded hover:bg-gray-200">Recent Purchases</Link>
+          <Link to="/listings" className="block py-2 px-4 rounded hover:bg-gray-200">Listed Items</Link>
+          <Link to="/messages" className="block py-2 px-4 rounded hover:bg-gray-200">Messages</Link>
+        </nav>
+      </aside>
 
-        <Card className="rounded-2xl shadow p-4">
-          <CardContent className="flex flex-col items-center text-center">
-            <ShoppingCart className="h-10 w-10 text-green-600 mb-2" />
-            <h2 className="text-xl font-semibold">Orders</h2>
-            <p className="text-gray-600">Track your recent purchases</p>
-            <Button className="mt-4 w-full">View Orders</Button>
-          </CardContent>
-        </Card>
+      {/* Main Content */}
+      <div className="flex-1 p-4">
+        <header className="mb-6">
+          <h1 className="text-3xl font-semibold text-primary-accent">Welcome to your Dashboard!</h1>
+        </header>
 
-        <Card className="rounded-2xl shadow p-4">
-          <CardContent className="flex flex-col items-center text-center">
-            <Package className="h-10 w-10 text-purple-600 mb-2" />
-            <h2 className="text-xl font-semibold">My Products</h2>
-            <p className="text-gray-600">Manage your listed items</p>
-            <Button className="mt-4 w-full">Manage Products</Button>
-          </CardContent>
-        </Card>
-      </div>
+        {/* Overview Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="bg-primary shadow-md rounded-md p-4">
+            <h3 className="text-lg font-semibold text-primary-accent mb-2">User Profile</h3>
+            <p className="text-sm text-primary-accent">View your profile details, edit information.</p>
+            <Link to="/dashboard/profile" className="inline-block mt-2 text-secondary-accent hover:underline">Go to My Profile</Link>
+          </div>
+          <div className="bg-primary shadow-md rounded-md p-4">
+            <h3 className="text-lg font-semibold text-primary-accent mb-2">My Items</h3>
+            <p className="text-sm text-primary-accent">Manage your currently listed items for sale.</p>
+            <Link to="/dashboard/items" className="inline-block mt-2 text-secondary-accent hover:underline">Go To My Items</Link>
+          </div>
+          <div className="bg-primary shadow-md rounded-md p-4">
+            <h3 className="text-lg font-semibold text-primary-accent mb-2">Listed Items</h3>
+            <p className="text-sm text-primary-accent">Manage your currently listed items for sale.</p>
+            <Link to="/listings" className="inline-block mt-2 text-secondary-accent hover:underline">Manage Listings</Link>
+          </div>
+          <div className="bg-primary shadow-md rounded-md p-4">
+            <h3 className="text-lg font-semibold text-primary-accent mb-2">Messages</h3>
+            <p className="text-sm text-primary-accent">Read and respond to your messages from buyers.</p>
+            <Link to="/messages" className="inline-block mt-2 text-secondary-accent hover:underline">View Messages</Link>
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Product Upload Form */}
-        <Card className="rounded-2xl shadow p-4">
-          <CardContent>
-            <div className="flex items-center mb-4">
-              <Upload className="h-6 w-6 text-indigo-600 mr-2" />
-              <h2 className="text-xl font-semibold">Upload New Product</h2>
-            </div>
-            <form className="space-y-4">
-              <Input placeholder="Product Name" />
-              <Textarea placeholder="Product Description" />
-              <Input type="number" placeholder="Price" />
-              <Input type="file" />
-              <Button type="submit" className="w-full">Upload</Button>
-            </form>
-          </CardContent>
-        </Card>
+        {/* Recent Activity & Chats */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="bg-primary shadow-md rounded-md p-4">
+            <h2 className="text-xl font-semibold text-primary-accent mb-4">Recent Activity</h2>
+            {/* Example Recent Purchases/Listings */}
+            <ul className="space-y-2">
+              <li>
+                <p className="text-primary-accent">Item "Awesome Gadget" purchased <span className="text-sm text-primary-accent">5 mins ago</span></p>
+              </li>
+              <li>
+                <p className="text-primary-accent">Item "Vintage Camera" listed <span className="text-sm text-primary-accent">1 hour ago</span></p>
+              </li>
+              {/* More recent activity items */}
+            </ul>
+          </div>
 
-        {/* Buyer Chat Section */}
-        <Card className="rounded-2xl shadow p-4">
-          <CardContent>
-            <div className="flex items-center mb-4">
-              <MessageSquare className="h-6 w-6 text-pink-600 mr-2" />
-              <h2 className="text-xl font-semibold">Buyer Messages</h2>
-            </div>
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              <div className="bg-white p-3 rounded-lg shadow-sm">
-                <p className="text-sm font-medium">Alice</p>
-                <p className="text-gray-600 text-sm">Hi, is the red jacket still available?</p>
-              </div>
-              <div className="bg-white p-3 rounded-lg shadow-sm">
-                <p className="text-sm font-medium">Bob</p>
-                <p className="text-gray-600 text-sm">Can you ship to California?</p>
-              </div>
-              <div className="bg-white p-3 rounded-lg shadow-sm">
-                <p className="text-sm font-medium">Charlie</p>
-                <p className="text-gray-600 text-sm">What’s the size of the sneakers?</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          <div className="bg-primary shadow-md rounded-md p-4">
+            <h2 className="text-xl font-semibold text-primary-accent mb-4">Buyer Chats</h2>
+            {/* Example Buyer Chats */}
+            <ul className="space-y-4">
+              <li className="border rounded-md p-3">
+                <p className="font-semibold text-primary-accent">Buyer A: Interested in "Old Book"</p>
+                <p className="text-primary-accent text-sm">Hey, is this still available?</p>
+                <Link to="/messages" className="inline-block mt-2 text-secondary-accent hover:underline">View Chat</Link>
+              </li>
+              <li className="border rounded-md p-3">
+                <p className="font-semibold text-primary-accent">Buyer B: Question about "Blue Shirt"</p>
+                <p className="text-primary-accent text-sm">What's the size of this shirt?</p>
+                <Link to="/messages" className="inline-block mt-2 text-secondary-accent hover:underline">View Chat</Link>
+              </li>
+              {/* More buyer chats */}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
+export default Dashboard;

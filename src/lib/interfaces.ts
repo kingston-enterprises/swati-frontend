@@ -12,3 +12,22 @@ export interface User {
   password: string;
 }
 
+export interface Item {
+    _id: string;
+    title: string;
+    description: string;
+    images: string[];
+    price: number;
+    category: string;
+    condition: string;
+    userId: {
+        _id: string;
+        firstname: string;
+        lastname: string;
+    };
+    location: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+}
+

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import logo from '@/assets/logo.svg';
-import { ButtonPrimary, ButtonSecondary } from '@/components/Button';
+import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Menu, X } from 'lucide-react';
@@ -23,37 +23,37 @@ export const Navbar: React.FC = () => {
   };
 
   useEffect(() => {
-  if (isMenuOpen) {
-    document.body.classList.add("overflow-hidden");
-  } else {
-    document.body.classList.remove("overflow-hidden");
-  }
-}, [isMenuOpen]);
-
+    if (isMenuOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [isMenuOpen]);
 
   return (
     <div className="w-full z-50 bg-secondary-accent border-b backdrop-blur-lg bg-opacity-80">
       <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
         <div className="relative flex h-16 justify-between items-center">
+          {/* Logo */}
           <button className="flex items-center space-x-2" onClick={() => navigate('/')}>
             <img className="h-10 w-auto" src={logo} alt="Swatini Shop Logo" />
             <h1 className="font-bold text-primary text-lg">SWATINI.SHOP</h1>
           </button>
 
-          {/* Desktop buttons */}
+          {/* Desktop Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <>
                 <span className="text-sm font-medium text-primary">
                   Welcome, {user?.first_name || 'User'}
                 </span>
-                <ButtonPrimary text="Dashboard" onClick={() => navigate('/dashboard')} />
-                <ButtonSecondary text="Logout" onClick={handleLogout} />
+                <Button variant="primary" rounded="full" onClick={() => navigate('/dashboard')}>Dashboard</Button>
+                <Button variant="primary-outline" rounded="full" onClick={handleLogout}>Logout</Button>
               </>
             ) : (
               <>
-                <ButtonPrimary text="Login" onClick={() => navigate('/login')} />
-                <ButtonSecondary text="Sign Up" onClick={() => navigate('/signup')} />
+                <Button variant="primary" rounded="full" onClick={() => navigate('/login')}>Log In</Button>
+                <Button variant="primary-outline" rounded="full" onClick={() => navigate('/signup')}>Sign Up</Button>
               </>
             )}
           </div>
@@ -67,8 +67,63 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-     
-      
+      {/* Mobile Side Drawer */}
+      {isMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-primary opacity-50 z-40 min-h-screen"
+            onClick={toggleMenu}
+          />
+          
+
+          {/* Drawer */}
+          <div className="fixed top-0 right-0 w-64 min-h-screen bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out">
+          {/* Close Button */}
+  <div className="flex justify-end p-4">
+    <button onClick={toggleMenu} aria-label="Close menu">
+      <X className="h-6 w-6 text-gray-600 hover:text-gray-900" />
+    </button>
+  </div>
+            <div className="p-6 flex flex-col space-y-4">
+              {isAuthenticated ? (
+                <>
+                  <span className="text-sm font-medium text-primary">
+                    Welcome, {user?.first_name || 'User'}
+                  </span>
+                  <Button variant="primary" onClick={() => {
+                    navigate('/dashboard');
+                    toggleMenu();
+                  }}>
+                    Dashboard
+                  </Button>
+                  <Button variant="primary-outline" onClick={() => {
+                    handleLogout();
+                    toggleMenu();
+                  }}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="primary" onClick={() => {
+                    navigate('/login');
+                    toggleMenu();
+                  }}>
+                    Log In
+                  </Button>
+                  <Button variant="primary-outline" onClick={() => {
+                    navigate('/signup');
+                    toggleMenu();
+                  }}>
+                    Sign Up
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
