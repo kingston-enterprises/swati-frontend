@@ -79,7 +79,7 @@ const ItemCard: React.FC<{ item: Item }> = ({ item }) => {
 
             </CardContent>
             <CardFooter>
-                <Button className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:from-purple-600 hover:to-blue-600">
+                <Button className="w-full bg-primary text-white hover:from-purple-600 hover:to-blue-600">
                     View Details
                 </Button>
             </CardFooter>

@@ -31,3 +31,21 @@ export interface Item {
     updatedAt: string;
 }
 
+
+export interface Chat {
+  _id: string;
+  participants: string[]; // user IDs
+  item: string; // item ID
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Message {
+  _id: string;
+  chat: string; // chat ID
+  sender: string; // user ID
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+

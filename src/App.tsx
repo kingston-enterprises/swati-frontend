@@ -9,6 +9,7 @@ import { Navbar } from '@/components/Navbar';
 import Dashboard from '@/pages/dashboard/Dashboard';
 import Profile from '@/pages/dashboard/Profile';
 import Items from '@/pages/dashboard/Items';
+import MessagesPage from '@/pages/chats/MessagesPage';
 import { RootState } from './api/store/store';
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
@@ -66,14 +67,22 @@ console.log("User from Redux:", user);
           }
         />
         <Route
-          path="/dashboard/items"
+          path="/items"
           element={
             <PrivateRoute>
               <Items />
             </PrivateRoute>
           }
         />
- 
+
+       <Route
+          path="/messages"
+          element={
+            <PrivateRoute>
+              <MessagesPage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </>
   );
