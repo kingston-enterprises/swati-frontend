@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import  logo from "@/assets/logo.svg";
+import  logo2 from "@/assets/logo2.svg";
 import { PhoneInput } from "@/components/custom/PhoneInput";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -78,7 +78,7 @@ useEffect(() => {
 
   return (
     <>
-      <section className="flex items-center justify-center min-h-screen w-full bg-primary-accent p-4">
+      <section className="flex items-center justify-center min-h-screen w-full bg-accent p-4">
       <div className="w-full max-w-2xl mx-auto">
         <a
           href="/"
@@ -86,12 +86,12 @@ useEffect(() => {
         >
           <img
             className="w-8 h-8 mr-2"
-            src={logo || "/placeholder.svg"}
+            src={logo2 || "/placeholder.svg"}
             alt="logo"
           />
           Swatini
         </a>
-        <div className="bg-tetiary shadow-lg shadow-secondary rounded-xl overflow-hidden border border-white/[0.08] hover:border-white/[0.15] transition-all duration-300">
+        <div className="bg-primary shadow-lg shadow-secondary rounded-xl overflow-hidden border border-white/[0.08] hover:border-white/[0.15] transition-all duration-300">
           <div className="p-8 space-y-6">
             <h1 className="text-2xl font-bold text-white text-center">
           Sign Into Your Account
@@ -110,7 +110,7 @@ useEffect(() => {
                   Phone number
                 </label>
                 <PhoneInput
-                  className="transition-colors duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed rounded-full inline-flex items-center w-full bg-primary-accent focus:ring-primary focus:border-primary text-primary"
+                  className=""
                   value={phoneNumber}
                   onChange={setPhoneNumber}
                   defaultCountry="SZ"
@@ -134,7 +134,7 @@ useEffect(() => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter password"
                     variant="primary"
-                    rounded="full"
+                    rounded="md"
                     required
                   />
                   <button
@@ -181,12 +181,14 @@ useEffect(() => {
                 </label>
               </div>
 
-                 <div className="flex gap-4">
+                 <div className="flex gap-5 p-3 flex-row items-center justify-center">
                 <Button
                   type="button"
                   onClick={handleCancel}
+                  className="w-full"
                   variant="secondary-outline"
-                  rounded="full"
+                  rounded="md"
+                  size="lg"
                 >
                   Cancel
                 </Button>
@@ -194,9 +196,11 @@ useEffect(() => {
                   type="submit"
                   disabled={!termsAccepted}
                   variant="secondary"
-                  rounded="full"
+                  rounded="md"
+                  className="w-full"
+                  size="lg"
                 >
-                  Sign Up
+                  Sign Ip
                 </Button>
               </div>
 
@@ -206,7 +210,7 @@ useEffect(() => {
                 >
                   Sign In
                 </button> */}
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+            <p className="text-sm font-light text-secondary text-center">
                   Dont have an account?{" "}
                   <a
                     href="/signup"

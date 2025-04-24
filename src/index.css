@@ -5,38 +5,34 @@
 
 @theme {
   /* Basic black and white adjusted to theme */
-  --color-white: #ffffff;
-  --color-black: #07121a;
+  --color-white: #ffffff; /* WHITE */
+  --color-black: #0F0606; /* SMOKY BLACK */
 
-
-  --color-primary-accent: #FFF3E9; /* Closest to the lighter peach */
-  --color-secondary-accent: #FFBA85; /* Other light peach */
-
-  /* Primary Dark Color (deep maroon) */
+  /* Primary Dark Color (CAPUT MORTUUM) */
   --color-primary: #5c2626;
 
-  /* Secondary Accent Color (light orange/peach) */
+  /* Secondary light Color (SANDY BROWN) */
   --color-secondary: #ffd6b6;
-
-  /* Darker Maroon */
-  --color-tetiary: #803535;
+  
+  /* Accent Color (CHAMPAGNE PINK) */
+  --color-accent: #FFE8D6;
 
 
   /* Text color (defaulting to a dark color for readability on light backgrounds) */
-  --color-text-color: var(--color-very-dark);
+  --color-text-color: var(--color-white);
 
   /* Link color (using the secondary accent for emphasis) */
-  --color-link-color: var(--color-secondary-accent);
-  --color-link-hover-color: var(--color-primary);
+  --color-link-color: var(--color-white);
+  --color-link-hover-color: var(--color-accent);
 
   /* Background color (defaulting to the primary light accent) */
-  --color-background-color: var(--color-primary-accent);
+  --color-background-color: var(--color-primary);
 }
 
 /* Base layout styling */
 @layer base {
   html, body, #root {
-    @apply min-h-screen w-full bg-primary text-primary-accent m-0 p-0;
+    @apply min-h-screen w-full bg-primary text-accent m-0 p-0;
   }
 
   body.overflow-hidden {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "@/assets/logo.svg";
+import logo2 from "@/assets/logo2.svg";
 import { PhoneInput } from "@/components/custom/PhoneInput";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { register } from "@/features/auth/authSlice";
@@ -82,7 +82,7 @@ export const SignUp = () => {
   }
 
   return (
-    <section className="flex items-center justify-center min-h-screen w-full bg-primary-accent p-4">
+      <section className="flex items-center justify-center min-h-screen w-full bg-accent p-4">
       <div className="w-full max-w-2xl mx-auto">
         <a
           href="/"
@@ -90,12 +90,12 @@ export const SignUp = () => {
         >
           <img
             className="w-8 h-8 mr-2"
-            src={logo || "/placeholder.svg"}
+            src={logo2 || "/placeholder.svg"}
             alt="logo"
           />
           Swatini
         </a>
-        <div className="bg-tetiary shadow-lg shadow-secondary rounded-xl overflow-hidden border border-white/[0.08] hover:border-white/[0.15] transition-all duration-300">
+        <div className="bg-primary shadow-lg shadow-secondary rounded-xl overflow-hidden border border-white/[0.08] hover:border-white/[0.15] transition-all duration-300">
           <div className="p-8 space-y-6">
             <h1 className="text-2xl font-bold text-white text-center">
               Create an account
@@ -117,7 +117,7 @@ export const SignUp = () => {
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     variant="primary" 
-                    rounded="full"
+                    rounded="md"
                     required
                   />
                 </div>
@@ -136,7 +136,7 @@ export const SignUp = () => {
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     variant="primary" 
-                    rounded="full"
+                    rounded="md"
                     required
                   />
                 </div>
@@ -157,7 +157,7 @@ export const SignUp = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   variant="primary" 
-                  rounded="full"
+                  rounded="md"
                   required
                 />
               </div>
@@ -193,7 +193,7 @@ export const SignUp = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter password"
                     variant="primary"
-                    rounded="full"
+                    rounded="md"
                     required
                   />
                   <button
@@ -225,9 +225,19 @@ export const SignUp = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm password"
                     variant="primary"
-                    rounded="full"
+                    rounded="md"
                     required
-                  />
+                  /><button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400"
+                  >
+                    {showPassword ? (
+                      <EyeOffIcon className="w-5 h-5" />
+                    ) : (
+                      <EyeIcon className="w-5 h-5" />
+                    )}
+                  </button>
                 </div>
               </div>
 
@@ -261,12 +271,14 @@ export const SignUp = () => {
                 </label>
               </div>
 
-              <div className="flex gap-4">
+                 <div className="flex gap-5 p-3 flex-row items-center justify-center">
                 <Button
                   type="button"
                   onClick={handleCancel}
+                  className="w-full"
                   variant="secondary-outline"
-                  rounded="full"
+                  rounded="md"
+                  size="lg"
                 >
                   Cancel
                 </Button>
@@ -274,9 +286,11 @@ export const SignUp = () => {
                   type="submit"
                   disabled={!termsAccepted}
                   variant="secondary"
-                  rounded="full"
+                  rounded="md"
+                  className="w-full"
+                  size="lg"
                 >
-                  Sign Up
+                  Sign Ip
                 </Button>
               </div>
             </form>

@@ -4,6 +4,7 @@ import { getUserChats } from "@/features/chats/chatSlice";
 import { RootState } from "@/app/store";
 import ChatWindow from "@/components/messages/ChatWindow";
 import ChatListItem from "@/components/messages/ChatListItem";
+import { ArrowLeft } from "lucide-react";
 
 export default function MessagesPage() {
   const dispatch = useDispatch();
@@ -14,17 +15,25 @@ export default function MessagesPage() {
     dispatch(getUserChats());
   }, [dispatch]);
 
+  const showChat = !!selectedChat;
+
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-1/3 border-r overflow-y-auto bg-white">
+      <div
+        className={`
+          w-full md:w-1/3 border-r overflow-y-auto bg-white
+          ${showChat ? "hidden md:block" : "block"}
+        `}
+      >
         <div className="p-4 font-bold text-xl border-b">Your Conversations</div>
         {isLoading ? (
           <div className="p-4">Loading chats...</div>
         ) : chats && chats.length === 0 ? (
           <div className="p-4 text-gray-500">No chats yet.</div>
         ) : (
-          chats && chats.map((chat) => (
+          chats &&
+          chats.map((chat) => (
             <ChatListItem
               key={chat._id}
               chat={chat}
@@ -36,7 +45,23 @@ export default function MessagesPage() {
       </div>
 
       {/* Chat Window */}
-      <div className="flex-1">
+      <div
+        className={`
+          flex-1 bg-white h-full flex flex-col
+          ${!showChat ? "hidden md:flex" : "flex"}
+        `}
+      >
+        {/* Mobile Back Button */}
+        <div className="md:hidden p-2 border-b">
+          <button
+            onClick={() => setSelectedChat(null)}
+            className="flex items-center text-sm text-blue-600"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to chats
+          </button>
+        </div>
+
         {selectedChat ? (
           <ChatWindow chat={selectedChat} />
         ) : (

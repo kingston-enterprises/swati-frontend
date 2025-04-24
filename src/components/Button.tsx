@@ -31,31 +31,31 @@ const Button: React.FC<ButtonProps> = ({
     transition-colors
     duration-200
     focus:outline-none
-    disabled:text-primary-accent
-    disabled:opacity-10
+    disabled:text-accent
+    disabled:opacity-50
     disabled:cursor-not-allowed
     ${rounded ? `rounded-${rounded}` : 'rounded-md'}
     ${className}
     inline-flex
     items-center
     justify-center
-    w-full
+    
   `;
 
   // Variant-specific styles
   let variantStyles = '';
   switch (variant) {
     case 'primary':
-      variantStyles = 'bg-primary hover:bg-secondary text-primary-accent';
+      variantStyles = 'bg-primary border hover:bg-secondary hover:border-primary text-secondary hover:text-primary';
       break;
     case 'secondary':
-      variantStyles = 'bg-secondary hover:bg-primary text-primary-accent hover:text-primary-accent';
+      variantStyles = 'bg-secondary border hover:bg-primary hover:border-secondary text-primary hover:text-secondary';
       break;
     case 'primary-outline':
-      variantStyles = 'border border-primary hover:bg-primary text-primary hover:text-primary-accent';
+      variantStyles = 'border border-primary hover:bg-primary text-secondary';
       break;
     case 'secondary-outline':
-      variantStyles = 'border border-secondary hover:bg-secondary text-secondary hover:text-primary';
+      variantStyles = 'border border-secondary hover:bg-secondary hover:border-primary text-secondary hover:text-primary';
       break;
     case 'primary-text':
       variantStyles = 'text-primary hover:text-secondary';

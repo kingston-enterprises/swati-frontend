@@ -31,29 +31,29 @@ export const Navbar: React.FC = () => {
   }, [isMenuOpen]);
 
   return (
-    <div className="w-full z-50 bg-secondary-accent border-b backdrop-blur-lg bg-opacity-80">
+    <div className="w-full z-50 bg-primary border-b backdrop-blur-lg bg-opacity-80">
       <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
         <div className="relative flex h-16 justify-between items-center">
           {/* Logo */}
           <button className="flex items-center space-x-2" onClick={() => navigate('/')}>
             <img className="h-10 w-auto" src={logo} alt="Swatini Shop Logo" />
-            <h1 className="font-bold text-primary text-lg">SWATINI.SHOP</h1>
+            <h1 className="font-bold text-accent text-lg">SWATINI.SHOP</h1>
           </button>
 
           {/* Desktop Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                <span className="text-sm font-medium text-primary">
+                <span className="text-sm font-medium text-accent">
                   Welcome, {user?.first_name || 'User'}
                 </span>
-                <Button variant="primary" rounded="full" onClick={() => navigate('/dashboard')}>Dashboard</Button>
-                <Button variant="primary-outline" rounded="full" onClick={handleLogout}>Logout</Button>
+                <Button variant="secondary" rounded="full" onClick={() => navigate('/dashboard')}>Dashboard</Button>
+                <Button variant="secondary-outline" rounded="full" onClick={handleLogout}>Logout</Button>
               </>
             ) : (
               <>
-                <Button variant="primary" rounded="full" onClick={() => navigate('/login')}>Log In</Button>
-                <Button variant="primary-outline" rounded="full" onClick={() => navigate('/signup')}>Sign Up</Button>
+                <Button variant="secondary" rounded="full" onClick={() => navigate('/login')}>Log In</Button>
+                <Button variant="secondary-outline" rounded="full" onClick={() => navigate('/signup')}>Sign Up</Button>
               </>
             )}
           </div>
@@ -91,13 +91,13 @@ export const Navbar: React.FC = () => {
                   <span className="text-sm font-medium text-primary">
                     Welcome, {user?.first_name || 'User'}
                   </span>
-                  <Button variant="primary" onClick={() => {
+                  <Button variant="secondary" onClick={() => {
                     navigate('/dashboard');
                     toggleMenu();
                   }}>
                     Dashboard
                   </Button>
-                  <Button variant="primary-outline" onClick={() => {
+                  <Button variant="secondary-outline" onClick={() => {
                     handleLogout();
                     toggleMenu();
                   }}>
@@ -106,13 +106,13 @@ export const Navbar: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <Button variant="primary" onClick={() => {
+                  <Button variant="secondary" onClick={() => {
                     navigate('/login');
                     toggleMenu();
                   }}>
                     Log In
                   </Button>
-                  <Button variant="primary-outline" onClick={() => {
+                  <Button variant="secondary-outline" onClick={() => {
                     navigate('/signup');
                     toggleMenu();
                   }}>

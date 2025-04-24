@@ -47,7 +47,7 @@ const Input: React.FC<InputProps> = ({
   let variantStyles = '';
   switch (variant) {
     case 'primary':
-      variantStyles = 'bg-primary-accent focus:ring-primary focus:border-primary text-primary';
+      variantStyles = 'bg-accent focus:ring-primary focus:border-primary text-primary';
       break;
     case 'secondary':
       variantStyles = 'bg-secondary focus:ring-secondary focus:border-secondary text-secondary';

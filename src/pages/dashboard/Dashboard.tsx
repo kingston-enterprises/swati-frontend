@@ -1,83 +1,82 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Or your framework's routing
+import { Link } from 'react-router-dom';
+import { User, Boxes, MessageCircle } from 'lucide-react';
+
+const dashboardLinks = [
+  {
+    title: 'User Profile',
+    description: 'View and edit your profile details.',
+    to: '/dashboard/profile',
+    icon: <User className="h-6 w-6 text-white" />,
+  },
+  {
+    title: 'My Items',
+    description: 'Manage your listed items for sale.',
+    to: '/dashboard/items',
+    icon: <Boxes className="h-6 w-6 text-white" />,
+  },
+  {
+    title: 'Messages',
+    description: 'Check and reply to your messages.',
+    to: '/messages',
+    icon: <MessageCircle className="h-6 w-6 text-white" />,
+  },
+];
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-100 flex">
-      {/* Sidebar */}
-      <aside className="bg-primary w-64 p-4 shadow-md hidden md:block">
-        <h2 className="text-xl font-semibold mb-4">Dashboard Menu</h2>
-        <nav className="space-y-2">
-          <Link to="/dashboard/profile" className="block py-2 px-4 rounded hover:bg-gray-200">My Items</Link>
-          <Link to="/dashboard/items" className="block py-2 px-4 rounded hover:bg-gray-200">Recent Purchases</Link>
-          <Link to="/listings" className="block py-2 px-4 rounded hover:bg-gray-200">Listed Items</Link>
-          <Link to="/messages" className="block py-2 px-4 rounded hover:bg-gray-200">Messages</Link>
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 p-4">
-        <header className="mb-6">
-          <h1 className="text-3xl font-semibold text-primary-accent">Welcome to your Dashboard!</h1>
+    <div className="min-h-screen bg-gradient-to-br from-secondary to-secondary/60 px-4 py-8 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <header className="mb-10">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">Welcome back 👋</h1>
+          <p className="text-gray-600 mt-1 text-sm sm:text-base">
+            Here's a quick look at what’s going on today.
+          </p>
         </header>
 
-        {/* Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="bg-primary shadow-md rounded-md p-4">
-            <h3 className="text-lg font-semibold text-primary-accent mb-2">User Profile</h3>
-            <p className="text-sm text-primary-accent">View your profile details, edit information.</p>
-            <Link to="/dashboard/profile" className="inline-block mt-2 text-secondary-accent hover:underline">Go to My Profile</Link>
+        {/* Quick Stats - could be dynamic later */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+            <p className="text-lg font-semibold text-primary">12</p>
+            <p className="text-sm text-gray-500">Active Listings</p>
           </div>
-          <div className="bg-primary shadow-md rounded-md p-4">
-            <h3 className="text-lg font-semibold text-primary-accent mb-2">My Items</h3>
-            <p className="text-sm text-primary-accent">Manage your currently listed items for sale.</p>
-            <Link to="/dashboard/items" className="inline-block mt-2 text-secondary-accent hover:underline">Go To My Items</Link>
+          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+            <p className="text-lg font-semibold text-primary">4</p>
+            <p className="text-sm text-gray-500">New Messages</p>
           </div>
-          <div className="bg-primary shadow-md rounded-md p-4">
-            <h3 className="text-lg font-semibold text-primary-accent mb-2">Listed Items</h3>
-            <p className="text-sm text-primary-accent">Manage your currently listed items for sale.</p>
-            <Link to="/listings" className="inline-block mt-2 text-secondary-accent hover:underline">Manage Listings</Link>
+          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+            <p className="text-lg font-semibold text-primary">7</p>
+            <p className="text-sm text-gray-500">Pending Offers</p>
           </div>
-          <div className="bg-primary shadow-md rounded-md p-4">
-            <h3 className="text-lg font-semibold text-primary-accent mb-2">Messages</h3>
-            <p className="text-sm text-primary-accent">Read and respond to your messages from buyers.</p>
-            <Link to="/messages" className="inline-block mt-2 text-secondary-accent hover:underline">View Messages</Link>
+          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+            <p className="text-lg font-semibold text-primary">98%</p>
+            <p className="text-sm text-gray-500">Positive Feedback</p>
           </div>
         </div>
 
-        {/* Recent Activity & Chats */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div className="bg-primary shadow-md rounded-md p-4">
-            <h2 className="text-xl font-semibold text-primary-accent mb-4">Recent Activity</h2>
-            {/* Example Recent Purchases/Listings */}
-            <ul className="space-y-2">
-              <li>
-                <p className="text-primary-accent">Item "Awesome Gadget" purchased <span className="text-sm text-primary-accent">5 mins ago</span></p>
-              </li>
-              <li>
-                <p className="text-primary-accent">Item "Vintage Camera" listed <span className="text-sm text-primary-accent">1 hour ago</span></p>
-              </li>
-              {/* More recent activity items */}
-            </ul>
-          </div>
-
-          <div className="bg-primary shadow-md rounded-md p-4">
-            <h2 className="text-xl font-semibold text-primary-accent mb-4">Buyer Chats</h2>
-            {/* Example Buyer Chats */}
-            <ul className="space-y-4">
-              <li className="border rounded-md p-3">
-                <p className="font-semibold text-primary-accent">Buyer A: Interested in "Old Book"</p>
-                <p className="text-primary-accent text-sm">Hey, is this still available?</p>
-                <Link to="/messages" className="inline-block mt-2 text-secondary-accent hover:underline">View Chat</Link>
-              </li>
-              <li className="border rounded-md p-3">
-                <p className="font-semibold text-primary-accent">Buyer B: Question about "Blue Shirt"</p>
-                <p className="text-primary-accent text-sm">What's the size of this shirt?</p>
-                <Link to="/messages" className="inline-block mt-2 text-secondary-accent hover:underline">View Chat</Link>
-              </li>
-              {/* More buyer chats */}
-            </ul>
-          </div>
+        {/* Overview Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {dashboardLinks.map((card) => (
+            <div
+              key={card.title}
+              className="group rounded-xl bg-primary text-white p-6 shadow-md transition-all hover:shadow-xl hover:scale-[1.015]"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 bg-accent rounded-lg">
+                  {card.icon}
+                </div>
+                <h3 className="text-xl font-semibold">{card.title}</h3>
+              </div>
+              <p className="text-sm opacity-90">{card.description}</p>
+              <Link
+                to={card.to}
+                className="inline-block mt-4 text-sm underline text-accent/90 hover:text-accent"
+              >
+                Go to {card.title}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </div>

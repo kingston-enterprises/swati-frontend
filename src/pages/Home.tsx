@@ -80,7 +80,7 @@ console.log('res', res)
                 The Best Place To Buy Local
               </p>
             
-            <div class=" flex items-center jusify-center w-full sm:w-2/3">
+            <div class=" flex items-center jusify-center mt-10 w-full sm:w-2/3">
               <SearchBar />
             </div>
             </div>

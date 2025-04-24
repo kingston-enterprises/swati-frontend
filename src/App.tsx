@@ -67,7 +67,7 @@ console.log("User from Redux:", user);
           }
         />
         <Route
-          path="/items"
+          path="/dashboard/items"
           element={
             <PrivateRoute>
               <Items />

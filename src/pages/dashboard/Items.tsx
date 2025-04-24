@@ -25,7 +25,7 @@ import { useToast } from "@/hooks/use-toast";
 import ItemsGrid from "@/components/custom/ItemsGrid";
 import Item from "@/lib/interface";
 import { conditionOptions, categoryOptions, statusOptions } from "@/lib/Options";
-
+import CustomDialog from "@/components/CustomDialog";
 
 export default function Items() {
   //  const [items, setItems] = useState<Item[]>([]);
@@ -152,99 +152,36 @@ console.log(newItem.id)
 
 
    return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="bg-accent p-6 w-full">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Items</h1>
         <Button onClick={openNewItemModal}>
           <Plus className="w-4 h-4 mr-2" /> Add Item
         </Button>
       </div>
+
+            <div class="border border-black p-10 mb-10 flex w-full">
     {isLoading ? (
       <p>Loading items...</p>
     ) : (
        <ItemsGrid items={data}/>
     )}
+    </div>
+    <CustomDialog
+  open={open}
+  setOpen={setOpen}
+  form={form}
+  setForm={setForm}
+  editItem={editItem}
+  handleSubmit={handleSubmit}
+  handleImageUpload={handleImageUpload}
+  categoryOptions={categoryOptions}
+  conditionOptions={conditionOptions}
+  statusOptions={statusOptions}
+/>
+
       {/* Create/Edit Dialog */}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>{editItem ? "Edit Item" : "New Item"}</DialogTitle>
-          </DialogHeader>
 
-          <div className="space-y-4">
-            <Input
-              placeholder="Title"
-              value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
-            />
-            <Input
-              placeholder="Description"
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
-            />
-            <Input
-              type="number"
-              placeholder="Price"
-              value={form.price}
-              onChange={(e) => setForm({ ...form, price: e.target.value })}
-            />
-            <select
-              className="w-full border p-2 rounded-md"
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
-            >
-              <option value="">Select Category</option>
-              {categoryOptions.map((cat) => (
-                <option key={cat}>{cat}</option>
-              ))}
-            </select>
-            <select
-              className="w-full border p-2 rounded-md"
-              value={form.condition}
-              onChange={(e) => setForm({ ...form, condition: e.target.value })}
-            >
-              <option value="">Select Condition</option>
-              {conditionOptions.map((cond) => (
-                <option key={cond}>{cond}</option>
-              ))}
-            </select>
-            <select
-              className="w-full border p-2 rounded-md"
-              value={form.status}
-              onChange={(e) => setForm({ ...form, status: e.target.value })}
-            >
-              {statusOptions.map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-
-            {/* Image Upload */}
-            <div>
-              <Label>Images</Label>
-              <Input type="file" multiple accept="image/*" onChange={handleImageUpload} />
-              <div className="flex flex-wrap mt-2 gap-2">
-                {form.images.map((img, idx) => (
-                  <img
-                    key={idx}
-                    src={img}
-                    alt={`preview-${idx}`}
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <DialogFooter className="mt-4">
-            <Button variant="ghost" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit}>
-              {editItem ? "Save Changes" : "Add Item"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

@@ -44,10 +44,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className = '' }
       <Button
         variant="primary"
         rounded="full"
-        size="sm"
-        className={'max-w-1/5'}
+        size="md"
+        className={'max-w-2/5'}
         onClick={handleSearchClick}
-        iconRight={<HiOutlineSearchCircle className="text-primary-accent ml-5" />}
+        iconRight={<HiOutlineSearchCircle className="text-accent ml-5" />}
       >
         <span>Find</span>
       </Button>
