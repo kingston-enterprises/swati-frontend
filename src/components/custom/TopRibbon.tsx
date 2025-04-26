@@ -1,11 +1,7 @@
 import React from 'react';
 
-interface TopRibbonProps {
-  // Props will be defined here later
-  [key: string]: any; // Allows for any other props to be passed
-}
 
-const TopRibbon: React.FC<TopRibbonProps> = ({ children, ...restProps }) => {
+const TopRibbon: React.FC = () => {
   return (
     <>
       <div className="w-full m-0 p-3 bg-accent text-primary">

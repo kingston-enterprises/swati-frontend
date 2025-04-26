@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk, GetThunkAPI } from "@reduxjs/toolkit";
 import chatService from "./chatService";
-import { Chat } from "@/lib/interfaces"; // Ensure you define this properly
+import { Chat } from "../../lib/interfaces"; // Ensure you define this properly
 
-type ChatState = {
+export type ChatState = {
   chats: Chat[] | null;
   chat: Chat | null;
   isLoading: boolean;
@@ -24,7 +24,9 @@ export const createChat = createAsyncThunk(
   "chats/create",
   async ({ recipientId, itemId }: { recipientId: string; itemId: string }, thunkAPI: GetThunkAPI<any>) => {
     try {
-      return await chatService.createChat(recipientId, itemId);
+    
+    console.log(itemId)
+      return await chatService.startChat({recipientId, itemId});
     } catch (error: any) {
       const message = error.response?.data?.message || error.message || error.toString();
       return thunkAPI.rejectWithValue(message);
@@ -48,7 +50,8 @@ export const getChatById = createAsyncThunk(
   "chats/getChatById",
   async (chatId: string, thunkAPI: GetThunkAPI<any>) => {
     try {
-      return await chatService.getChatById(chatId);
+    console.log(chatId)
+      return await chatService.getUserChats();
     } catch (error: any) {
       const message = error.response?.data?.message || error.message || error.toString();
       return thunkAPI.rejectWithValue(message);

@@ -1,19 +1,10 @@
 import React from "react";
-import Button from '@/components/Button';
-type Item = {
-  _id: string;
-  title: string;
-  description: string;
-  images: string[];
-  price: number;
-  category: string;
-  condition: string;
-  status: string;
-};
+import Button from '../../components/Button';
+
 
 type ItemDialogProps = {
   open: boolean;
-  item: Item | null;
+  item: any;
   onClose: () => void;
   onChat?: () => void;
 };
@@ -23,7 +14,7 @@ const ItemDialog: React.FC<ItemDialogProps> = ({ open, item, onClose, onChat }) 
 
   return (
     <>
-    <div id="detail-modal" class="bg-black opacity-25 fixed inset-0 flex  items-center justify-center z-10"></div>
+    <div id="detail-modal" className="bg-black opacity-25 fixed inset-0 flex  items-center justify-center z-10"></div>
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className=" h-[90vh] w-full max-w-4xl overflow-auto rounded-lg bg-white p-6 shadow-lg">
         <div className="mb-4">

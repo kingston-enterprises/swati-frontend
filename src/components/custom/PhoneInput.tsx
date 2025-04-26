@@ -3,8 +3,8 @@ import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 import { ChevronsUpDown, CheckIcon } from "lucide-react";
 
-import Input from "@/components/Input";
-import Button from "@/components/Button";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 type PhoneInputProps = Omit<
   React.ComponentProps<"input">,
@@ -26,7 +26,9 @@ export const PhoneInput = React.forwardRef<
       countrySelectComponent={CountrySelect}
       inputComponent={InputComponent}
       smartCaret={false}
-      onChange={(value) => onChange?.(value || "")}
+      onChange={(value) => {
+  if (value) onChange?.(value);
+}}
       {...props}
     />
   );
@@ -88,7 +90,7 @@ const CountrySelect = ({
             <Input
               placeholder="Search country..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e:any) => setSearch(e.target.value)}
               className="w-full"
             />
           </div>

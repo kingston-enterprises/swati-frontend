@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import logo from '@/assets/logo.svg';
-import Button from '@/components/Button';
+import logo from '../assets/logo.svg';
+import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Menu, X } from 'lucide-react';
-import { RootState } from '@/api/store/store';
-import { logout, reset } from '@/features/auth/authSlice';
+import { logout, reset } from '../features/auth/authSlice';
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { user, isAuthenticated } = useSelector((state:any) => state.auth);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 

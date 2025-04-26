@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, GetThunkAPI } from "@reduxjs/toolkit";
 import messageService from "./messageService";
-import { Message } from "@/lib/interfaces"; // Make sure this is defined properly
-
+import { Message } from "../../lib/interfaces";
 type MessagesState = {
   messages: Message[] | null;
   isLoading: boolean;

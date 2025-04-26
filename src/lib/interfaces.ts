@@ -3,48 +3,48 @@
  * @type {User}
  */
 export interface User {
-  _id: string;
-  first_name: string;
-  last_name: string;
+  _id: string | undefined;
+  first_name: string | undefined;
+  last_name: string | undefined;
 
-  username: string;
-  phone_number: string;
-  password: string;
+  username: string | undefined;
+  phone_number: string | undefined;
+  password: string | undefined;
 }
 
 export interface Item {
-    _id: string;
-    title: string;
-    description: string;
-    images: string[];
-    price: number;
-    category: string;
-    condition: string;
-    userId: {
-        _id: string;
-        firstname: string;
-        lastname: string;
+    _id?: string | undefined;
+    title?: string | undefined;
+    description?: string | undefined;
+    images?: string[] | undefined;
+    price?: number;
+    category?: string | undefined;
+    condition?: string | undefined;
+    userId?: {
+        _id: string | undefined;
+        firstname: string | undefined;
+        lastname: string | undefined;
     };
-    location: string;
-    status: string;
-    createdAt: string;
-    updatedAt: string;
+    location?: string | undefined;
+    status?: string | undefined;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 
 export interface Chat {
-  _id: string;
+  _id: string | undefined;
   participants: string[]; // user IDs
-  item: string; // item ID
+  item: string | undefined; // item ID
   createdAt: string;
   updatedAt: string;
 }
 
 export interface Message {
-  _id: string;
-  chat: string; // chat ID
-  sender: string; // user ID
-  content: string;
+  _id: string | undefined;
+  chat: string | undefined; 
+  sender: string | undefined; 
+  content: string | undefined;
   createdAt: string;
   updatedAt: string;
 }

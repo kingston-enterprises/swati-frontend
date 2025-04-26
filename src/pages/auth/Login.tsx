@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import  logo2 from "@/assets/logo2.svg";
-import { PhoneInput } from "@/components/custom/PhoneInput";
-import { useAuth } from "@/hooks/useAuth";
+import  logo2 from "../../assets/logo2.svg";
+import { PhoneInput } from "../../components/custom/PhoneInput";
 import { useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import useNavigation from "@/hooks/useNavigation";
-import { useToast } from "@/hooks/use-toast";
-import { login } from "@/features/auth/authSlice";
-import Loader from "@/components/custom/Loader";
-import Input from "@/components/Input"; 
-import Button from "@/components/Button"; 
+import { useToast } from "../../hooks/use-toast";
+import { login } from "../../features/auth/authSlice";
+import Loader from "../../components/custom/Loader";
+import Input from "../../components/Input"; 
+import Button from "../../components/Button"; 
 
 type Props = {};
 
@@ -19,18 +17,10 @@ export const Login = ({}: Props) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
- 
-  const [, setFormData] = useState({
-    phoneNumber: "",
-    password: "",
-  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const { user, isLoading, isError, isSuccess } = useSelector(
     (state: any) => state.auth
@@ -69,7 +59,7 @@ useEffect(() => {
   };
   
     const handleCancel = () => {
-    navigateTo("/");
+    navigate("/");
   };
 
   if (isLoading) {
@@ -131,7 +121,7 @@ useEffect(() => {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e:any) => setPassword(e.target.value)}
                     placeholder="Enter password"
                     variant="primary"
                     rounded="md"
@@ -157,7 +147,7 @@ useEffect(() => {
                   type="checkbox"
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-700 focus:ring-3 focus:ring-accent"
                   checked={termsAccepted}
-                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                  onChange={(e:any) => setTermsAccepted(e.target.checked)}
                   required
                 />
                 <label

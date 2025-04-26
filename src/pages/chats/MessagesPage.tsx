@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserChats } from "@/features/chats/chatSlice";
-import { RootState } from "@/app/store";
-import ChatWindow from "@/components/messages/ChatWindow";
-import ChatListItem from "@/components/messages/ChatListItem";
+import { getUserChats } from "../../features/chats/chatSlice";
+import ChatWindow from "../../components/messages/ChatWindow";
+import ChatListItem from "../../components/messages/ChatListItem";
 import { ArrowLeft } from "lucide-react";
+import { Chat } from "../../lib/interfaces";
 
 export default function MessagesPage() {
   const dispatch = useDispatch();
-  const { chats, isLoading } = useSelector((state: RootState) => state.chat);
-  const [selectedChat, setSelectedChat] = useState(null);
+  const { chats, isLoading } = useSelector((state:any)=> state.chat);
+  const [selectedChat, setSelectedChat] = useState<Chat | null>();
 
   useEffect(() => {
-    dispatch(getUserChats());
+    getUserChats()
   }, [dispatch]);
 
   const showChat = !!selectedChat;
@@ -33,7 +33,7 @@ export default function MessagesPage() {
           <div className="p-4 text-gray-500">No chats yet.</div>
         ) : (
           chats &&
-          chats.map((chat) => (
+          chats.map((chat:Chat) => (
             <ChatListItem
               key={chat._id}
               chat={chat}

@@ -1,31 +1,15 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; 
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Pencil,
-  Trash2,
-  Plus,
-  UploadCloud,
-  Image as ImageIcon,
+  Plus
 } from "lucide-react";
-import { v4 as uuidv4 } from "uuid";
-import { Select } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { getUserItemsWithPagination, createItem, updateItem } from "@/features/items/itemSlice";
-import { useToast } from "@/hooks/use-toast";
-import ItemsGrid from "@/components/custom/ItemsGrid";
-import Item from "@/lib/interface";
-import { conditionOptions, categoryOptions, statusOptions } from "@/lib/Options";
-import CustomDialog from "@/components/CustomDialog";
+import { getUserItemsWithPagination, createItem, updateItem } from "../../features/items/itemSlice";
+import { useToast } from "../../hooks/use-toast";
+import ItemsGrid from "../../components/custom/ItemsGrid";
+import { Item } from "../../lib/interfaces";
+import { conditionOptions, categoryOptions, statusOptions } from "../../lib/Options";
+import CustomDialog from "../../components/CustomDialog";
 
 export default function Items() {
   //  const [items, setItems] = useState<Item[]>([]);
@@ -47,7 +31,7 @@ export default function Items() {
   const { data, message, isLoading, isError } = useSelector(
     (state: any) => state.item
   );
-  const [hasFetched, setHasFetched] = useState(false);
+
 
 
   useEffect(() => {
@@ -86,30 +70,15 @@ console.log('res', res)
     setOpen(true);
   };
 
-  const openEditModal = (item: Item) => {
-    setEditItem(item);
-    setForm({
-      title: item.title,
-      description: item.description,
-      price: item.price.toString(),
-      category: item.category,
-      condition: item.condition,
-      status: item.status,
-      images: item.images,
-    });
-    setOpen(true);
-  };
 
-  const handleDelete = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
+
 
   const handleSubmit = () => {
     const { title, description, price, category, condition, status, images } = form;
     if (!title || !description || !price || !category || !condition || !images.length) return;
 
     const newItem: Item = {
-      id: editItem ? editItem._id : '',
+      _id: editItem ? editItem._id : '',
       title,
       description,
       price: parseFloat(price),
@@ -117,9 +86,9 @@ console.log('res', res)
       condition,
       status,
       images,
-      userId: currentUserId,
+      userId: user._id,
     };
-console.log(newItem.id)
+    
     if (editItem) {
      
       dispatch(updateItem(newItem));
@@ -160,7 +129,7 @@ console.log(newItem.id)
         </Button>
       </div>
 
-            <div class="border border-black p-10 mb-10 flex w-full">
+            <div className="border border-black p-10 mb-10 flex w-full">
     {isLoading ? (
       <p>Loading items...</p>
     ) : (

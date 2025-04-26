@@ -1,34 +1,42 @@
 import React, { ReactNode, ChangeEvent } from 'react';
 
 interface InputProps {
+  id?:string;
   type?: string;
+  name?: string;
   placeholder?: string;
-  value?: string | number;
+  value?: any;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
   rounded?: 'sm' | 'md' | 'lg' | 'full' | undefined;
-  variant?: 'primary' | 'secondary' | 'outline'; // Example variants for input
-  size?: 'sm' | 'md' | 'lg' | undefined;
+  variant?: 'primary' | 'secondary' | 'outline'; 
+  size?: 'sm' | 'md' | 'lg' | undefined | number;
   disabled?: boolean;
-  // Add other relevant props as needed
+  required?: boolean;
+  ref?: any;
 }
 
 const Input: React.FC<InputProps> = ({
+  id='',
   type = 'text',
   placeholder = '',
   value,
   onChange,
   className = '',
   iconLeft,
+  name,
   iconRight,
   rounded = 'md',
   variant = 'primary',
   size = 'md',
   disabled = false,
+  required = true,
+  ref,
   ...rest
 }) => {
+console.log(ref)
   // Base input styles
   let baseStyles = `
     transition-colors
@@ -88,7 +96,9 @@ const Input: React.FC<InputProps> = ({
         </div>
       )}
       <input
+        id={id}
         type={type}
+        name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

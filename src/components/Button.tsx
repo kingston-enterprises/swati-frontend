@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset" | undefined;
   className?: string;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
@@ -56,12 +57,6 @@ const Button: React.FC<ButtonProps> = ({
       break;
     case 'secondary-outline':
       variantStyles = 'border border-secondary hover:bg-secondary hover:border-primary text-secondary hover:text-primary';
-      break;
-    case 'primary-text':
-      variantStyles = 'text-primary hover:text-secondary';
-      break;
-    case 'secondary-text':
-      variantStyles = 'text-secondary hover:text-primary';
       break;
     default:
       variantStyles = 'bg-primary hover:bg-secondary text-primary-accent';

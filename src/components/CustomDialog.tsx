@@ -1,6 +1,5 @@
-import React from "react";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 
 const CustomDialog = ({
@@ -14,7 +13,7 @@ const CustomDialog = ({
   categoryOptions,
   conditionOptions,
   statusOptions,
-}) => {
+}:any) => {
   if (!open) return null;
 
   return (
@@ -39,45 +38,45 @@ const CustomDialog = ({
           <Input
             placeholder="Title"
             value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
+            onChange={(e:any) => setForm({ ...form, title: e.target.value })}
           />
           <Input
             placeholder="Description"
             value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            onChange={(e:any) => setForm({ ...form, description: e.target.value })}
           />
           <Input
             type="number"
             placeholder="Price"
             value={form.price}
-            onChange={(e) => setForm({ ...form, price: e.target.value })}
+            onChange={(e:any) => setForm({ ...form, price: e.target.value })}
           />
           <select
             className="w-full border border-gray-300 p-2 rounded-md"
             value={form.category}
-            onChange={(e) => setForm({ ...form, category: e.target.value })}
+            onChange={(e:any) => setForm({ ...form, category: e.target.value })}
           >
             <option value="">Select Category</option>
-            {categoryOptions.map((cat) => (
+            {categoryOptions.map((cat:any) => (
               <option key={cat}>{cat}</option>
             ))}
           </select>
           <select
             className="w-full border border-gray-300 p-2 rounded-md"
             value={form.condition}
-            onChange={(e) => setForm({ ...form, condition: e.target.value })}
+            onChange={(e:any) => setForm({ ...form, condition: e.target.value })}
           >
             <option value="">Select Condition</option>
-            {conditionOptions.map((cond) => (
+            {conditionOptions.map((cond:any) => (
               <option key={cond}>{cond}</option>
             ))}
           </select>
           <select
             className="w-full border border-gray-300 p-2 rounded-md"
             value={form.status}
-            onChange={(e) => setForm({ ...form, status: e.target.value })}
+            onChange={(e:any) => setForm({ ...form, status: e.target.value })}
           >
-            {statusOptions.map((s) => (
+            {statusOptions.map((s:any) => (
               <option key={s}>{s}</option>
             ))}
           </select>
@@ -87,12 +86,12 @@ const CustomDialog = ({
             <label>Images</label>
             <Input
               type="file"
-              multiple
-              accept="image/*"
+              
+              //accept="image/*"
               onChange={handleImageUpload}
             />
             <div className="flex flex-wrap mt-2 gap-2">
-              {form.images.map((img, idx) => (
+              {form.images.map((img:any, idx:any) => (
                 <img
                   key={idx}
                   src={img}
@@ -106,7 +105,7 @@ const CustomDialog = ({
 
         {/* Footer */}
         <div className="mt-6 flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setOpen(false)}>
+          <Button variant="primary" onClick={() => setOpen(false)}>
             Cancel
           </Button>
           <Button onClick={handleSubmit}>

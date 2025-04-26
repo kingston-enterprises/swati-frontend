@@ -1,13 +1,13 @@
-import React from "react";
-import { Chat } from "@/lib/interfaces";
-import { cn } from "@/lib/utils";
+
+import { Chat } from "../../lib/interfaces";
+import { cn } from "../../lib/utils"
 
 export default function ChatListItem({ chat, onClick, isActive }: {
   chat: Chat;
   onClick: () => void;
   isActive: boolean;
 }) {
-  const recipient = chat.participants.find((p) => !p.isCurrentUser); // Example logic
+  const recipient = chat.participants.find((p:any) => !p.isCurrentUser); // Example logic
 
   return (
     <div
@@ -19,8 +19,8 @@ export default function ChatListItem({ chat, onClick, isActive }: {
     >
       <div className="flex justify-between items-center">
         <div>
-          <div className="text-sm">{recipient?.username}</div>
-          <div className="text-xs text-gray-500">{chat.item?.title}</div>
+          <div className="text-sm">{recipient}</div>
+          <div className="text-xs text-gray-500">{chat.item}</div>
         </div>
         <div className="text-xs text-gray-400">
           {new Date(chat.updatedAt).toLocaleDateString()}

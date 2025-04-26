@@ -1,39 +1,26 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux"; 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  Pencil,
-  Trash2,
-  Plus,
-  UploadCloud,
-  Image as ImageIcon,
-} from "lucide-react";
-import { v4 as uuidv4 } from "uuid";
-import { Select } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { getUserItemsWithPagination, createItem, updateItem } from "@/features/items/itemSlice";
-import { useToast } from "@/hooks/use-toast";
-import { Item } from "@/lib/interfaces";
-import ItemCard from "@/components/custom/ItemCard"; 
-import ItemDialog from "@/components/custom/ItemDialog"; 
-import Filters from "@/components/custom/Filter";
-import { conditionOptions, categoryOptions, statusOptions } from "@/lib/Options";
+import { useState, useMemo } from "react";
+
+import { Item } from "../../lib/interfaces";
+import ItemCard from "../../components/custom/ItemCard"; 
+import ItemDialog from "../../components/custom/ItemDialog"; 
+import Filters from "../../components/custom/Filter";
 
 interface ItemsGridProps {
 items : Item[]
 }
 
 export default function ItemsGrid({items} : ItemsGridProps) {
-  const [filters, setFilters] = useState({
+const [status, setStatus] = useState("");
+const [category, setCategory] = useState("");
+const [condition, setCondition] = useState("");
+
+const resetFilters = () => {
+  setStatus("");
+  setCategory("");
+  setCondition("");
+};
+
+  const [filters, ] = useState({
     status: "",
     category: "",
     condition: "",
@@ -42,14 +29,28 @@ export default function ItemsGrid({items} : ItemsGridProps) {
   const [openDetailModal, setOpenDetailModal] = useState(false);
 const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
+  const [, setOpen] = useState(false);
+  const [, setEditItem] = useState<Item | null>(null);
+  const [, setForm] = useState({
+    title: "",
+    description: "",
+    price: "",
+    category: "",
+    condition: "",
+    status: "Available",
+    images: [] as string[] | undefined,
+  });
 
 console.log("TEMS: ", items);
+  const handleDelete = (e: any) => {
+  console.log(e);
+    };
 
 const filteredItems = useMemo(() => {
   if (!items) return [];
 
-  return items.items.filter(
-    (item) =>
+  return items.filter(
+    (item:any) =>
 
       (!filters.status || item.status === filters.status) &&
       (!filters.category || item.category === filters.category) &&
@@ -57,19 +58,42 @@ const filteredItems = useMemo(() => {
   );
 }, [items, filters]);
 
+  const openEditModal = (item: Item) => {
+    setEditItem(item);
+    setForm({
+      title: `${item.title}`,
+      description: `${item.description}`,
+      price: `${item.price?.toString()}`,
+      category: `${item.category}`,
+      condition: `${item.condition}`,
+      status: `${item.status}`,
+      images: item.images,
+    });
+    setOpen(true);
+  };
+
+
 return (<>
          {/* Filters */}
 <div className=" w-full flex flex-col items-center justify-center">
-    <Filters />
+   <Filters
+  status={status}
+  setStatus={setStatus}
+  category={category}
+  setCategory={setCategory}
+  condition={condition}
+  setCondition={setCondition}
+  resetFilters={resetFilters}
+/>
               {/* Items Grid */}
      
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  {filteredItems.map((item) => (
+  {filteredItems.map((item : any) => (
 <ItemCard
   item={item}
-  onEdit={(id) => openEditModal(id)}
-  onDelete={(id) => handleDelete(id)}
-  onViewDetails={(item) => {
+  onEdit={(item : any) => openEditModal(item)}
+  onDelete={(id : any) => handleDelete(id)}
+  onViewDetails={(item : any) => {
     setSelectedItem(item);
     setOpenDetailModal(true);
   }}

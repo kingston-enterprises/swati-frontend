@@ -31,6 +31,10 @@ export default defineConfig({
       },
     })
 
-    ]
+    ],
+      server: {
+    host: true, // this lets Vite listen on 0.0.0.0
+    allowedHosts: ['.ngrok-free.app'], // ✅ allow any *.ngrok-free.app
+  },
 })
 

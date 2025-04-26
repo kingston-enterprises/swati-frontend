@@ -1,6 +1,6 @@
 import axios from "axios";
 import { User } from "../../lib/interfaces";
-import * as api from "@/api";
+import * as api from "../../api";
 
 /** NOTE(06/01/25): please enseure module is set to "es2020" in compilerOptions,
  *  else : error TS1343

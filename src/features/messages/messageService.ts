@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as api from "@/api";
+import * as api from "../../api";
 
 const API_URL = api.API_URL + "v0/";
 const authToken = () => localStorage.getItem("authtoken");

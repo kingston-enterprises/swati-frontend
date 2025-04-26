@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import logo2 from "@/assets/logo2.svg";
-import { PhoneInput } from "@/components/custom/PhoneInput";
+import logo2 from "../../assets/logo2.svg";
+import { PhoneInput } from "../../components/custom/PhoneInput";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { register } from "@/features/auth/authSlice";
-import { useToast } from "@/hooks/use-toast";
+import { register } from "../../features/auth/authSlice";
+import { useToast } from "../../hooks/use-toast";
 import { useDispatch, useSelector } from "react-redux";
-import useNavigation from "@/hooks/useNavigation";
-import Loader from "@/components/custom/Loader";
-import Input from "@/components/Input"; 
-import Button from "@/components/Button"; 
+import { useNavigate } from "react-router-dom";
+import Loader from "../../components/custom/Loader";
+import Input from "../../components/Input"; 
+import Button from "../../components/Button"; 
 
 export const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -21,7 +21,7 @@ export const SignUp = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const dispatch = useDispatch();
-  const { navigateTo } = useNavigation();
+  const navigate = useNavigate();
   const { user, isLoading, isError, message } = useSelector(
     (state: any) => state.auth
   );
@@ -37,14 +37,14 @@ export const SignUp = () => {
     }
 
     if (user) {
-      navigateTo("/login");
+      navigate("/login");
       toast({
         variant: "default",
         title: "Congratulations",
         description: "Sign Up successful",
       });
     }
-  }, [user, isError, message, navigateTo, toast]);
+  }, [user, isError, message, navigate, toast]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,7 +74,7 @@ export const SignUp = () => {
   };
 
   const handleCancel = () => {
-    navigateTo("/");
+    navigate("/");
   };
 
   if (isLoading) {
@@ -115,7 +115,7 @@ export const SignUp = () => {
                     id="first_name"
                     placeholder="First Name"
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    onChange={(e:any) => setFirstName(e.target.value)}
                     variant="primary" 
                     rounded="md"
                     required
@@ -134,7 +134,7 @@ export const SignUp = () => {
                     id="last_name"
                     placeholder="Last Name"
                     value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    onChange={(e:any) => setLastName(e.target.value)}
                     variant="primary" 
                     rounded="md"
                     required
@@ -155,7 +155,7 @@ export const SignUp = () => {
                   id="email"
                   placeholder="Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e:any) => setEmail(e.target.value)}
                   variant="primary" 
                   rounded="md"
                   required
@@ -190,7 +190,7 @@ export const SignUp = () => {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e:any) => setPassword(e.target.value)}
                     placeholder="Enter password"
                     variant="primary"
                     rounded="md"
@@ -222,7 +222,7 @@ export const SignUp = () => {
                     type={showPassword ? "text" : "password"}
                     id="confirm-password"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={(e:any) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm password"
                     variant="primary"
                     rounded="md"
@@ -247,7 +247,7 @@ export const SignUp = () => {
                   type="checkbox"
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-700 focus:ring-3 focus:ring-accent"
                   checked={termsAccepted}
-                  onChange={(e) => setTermsAccepted(e.target.checked)}
+                  onChange={(e:any) => setTermsAccepted(e.target.checked)}
                   required
                 />
                 <label

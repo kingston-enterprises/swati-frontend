@@ -1,10 +1,10 @@
 import axios from "axios";
 import { Item } from "../../lib/interfaces";
-import * as api from "@/api";
+import * as api from "../../api";
 
 const API_URL: string = api.API_URL + "v0/";
 
-const updateItem = async (ItemData: Item | void) => {
+const updateItem = async (ItemData: Item) => {
 
   //  Instead of localStorage, get it from a more secure location
     const authToken = localStorage.getItem('authtoken');
@@ -12,7 +12,7 @@ const updateItem = async (ItemData: Item | void) => {
         throw new Error("Authentication token is missing.");
     }
 
-    const response = await axios.put(`${API_URL}items/${ItemData.id}`, ItemData, {
+    const response = await axios.put(`${API_URL}items/${ItemData._id}`, ItemData, {
         headers: {
           Authorization: `Bearer ${authToken}`,
         },

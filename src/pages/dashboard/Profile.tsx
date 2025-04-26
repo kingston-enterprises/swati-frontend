@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // Or your framework's routing
-import Input from '@/components/Input'; // Assuming your custom Input component
-import Button from '@/components/Button'; // Assuming your custom Button component
-import { PhoneInput } from '@/components/custom/PhoneInput'; // Assuming your custom PhoneInput component
+import Input from '../../components/Input'; // Assuming your custom Input component
+import Button from '../../components/Button'; // Assuming your custom Button component
+import { PhoneInput } from '../../components/custom/PhoneInput'; // Assuming your custom PhoneInput component
 import { useSelector } from "react-redux";
-import { formatDate } from "@/lib/utils";
+import { formatDate } from "../../lib/utils.ts";
 import person from "@/assets/person.svg";
 
-const Profile = () => {
+const Profile: React.FC = () => {
  
   const { user } = useSelector((state : any) => state.auth);
 
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
-  const [profilePicture, setProfilePicture] = useState('/default-profile.png'); // Placeholder
+  const [profilePicture, setProfilePicture] = useState('')
   const [gender, setGender] = useState(user.gender);
   const [dateOfBirth, setDateOfBirth] = useState(user.date_of_birth);
   const [address, setAddress] = useState(user.address);
@@ -25,7 +25,7 @@ const Profile = () => {
     // Implement your save logic here
     console.log('Saving profile changes...');
     console.log({ firstName, lastName, gender, dateOfBirth, address, email, phoneNumber, privacySetting });
-    // You would typically make an API call to update the user's data
+    console.log(profilePicture);
   };
 
 
@@ -40,7 +40,7 @@ const Profile = () => {
             <label htmlFor="profile-picture-upload" className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
             </label>
-            <input type="file" id="profile-picture-upload" className="hidden" onChange={(e) => { /* Handle image upload */ }} />
+            <input type="file" id="profile-picture-upload" className="hidden" onChange={(e:any) => { setProfilePicture(e)}} />
           </div>
           <h2 className="text-xl font-semibold mt-2">{`${user.first_name} ${user.last_name}`}</h2>
           <p className="text-gray-600 text-sm">{`Member since ${formatDate(user.createdAt)}`}</p> {/* Example */}
@@ -52,15 +52,15 @@ const Profile = () => {
           <div className="space-y-4">
             <div>
               <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
-              <Input type="text" id="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} variant="primary" rounded="md" />
+              <Input type="text" id="firstName" value={firstName} onChange={(e:any) => setFirstName(e.target.value)} variant="primary" rounded="md" />
             </div>
             <div>
               <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
-              <Input type="text" id="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} variant="primary" rounded="md" />
+              <Input type="text" id="lastName" value={lastName} onChange={(e:any) => setLastName(e.target.value)} variant="primary" rounded="md" />
             </div>
             <div>
               <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</label>
-              <select id="gender" value={gender} onChange={(e) => setGender(e.target.value)} className="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-accent focus:border-accent text-gray-700 sm:text-sm">
+              <select id="gender" value={gender} onChange={(e:any) => setGender(e.target.value)} className="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-accent focus:border-accent text-gray-700 sm:text-sm">
                 <option>Male</option>
                 <option>Female</option>
                 <option>Rather Not Say</option>
@@ -68,7 +68,7 @@ const Profile = () => {
             </div>
             <div>
               <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700">Date of Birth</label>
-              <Input type="date" id="dateOfBirth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} variant="primary" rounded="md" />
+              <Input type="date" id="dateOfBirth" value={dateOfBirth} onChange={(e:any) => setDateOfBirth(e.target.value)} variant="primary" rounded="md" />
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ const Profile = () => {
           <h3 className="text-lg font-semibold text-gray-700 mb-4">Address</h3>
           <div>
             <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
-            <Input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} variant="primary" rounded="md" />
+            <Input type="text" id="address" value={address} onChange={(e:any) => setAddress(e.target.value)} variant="primary" rounded="md" />
           </div>
         </div>
 
@@ -88,11 +88,11 @@ const Profile = () => {
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-              <Input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} variant="primary" rounded="md" />
+              <Input type="email" id="email" value={email} onChange={(e:any) => setEmail(e.target.value)} variant="primary" rounded="md" />
             </div>
             <div>
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number</label>
-              <PhoneInput value={phoneNumber} onChange={setPhoneNumber} variant="primary" rounded="md" />
+              <PhoneInput value={phoneNumber} onChange={setPhoneNumber}  />
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@ const Profile = () => {
           <h3 className="text-lg font-semibold text-gray-700 mb-4">Privacy Settings</h3>
           <div>
             <label htmlFor="privacy" className="block text-sm font-medium text-gray-700">Profile Visibility</label>
-            <select id="privacy" value={privacySetting} onChange={(e) => setPrivacySetting(e.target.value)} className="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-accent focus:border-accent text-gray-700 sm:text-sm">
+            <select id="privacy" value={privacySetting} onChange={(e:any) => setPrivacySetting(e.target.value)} className="w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:ring-accent focus:border-accent text-gray-700 sm:text-sm">
               <option>Public</option>
               <option>Friends Only</option>
               <option>Private</option>
@@ -115,7 +115,7 @@ const Profile = () => {
         <div className="py-4 px-6 bg-gray-200 border-t border-gray-300 text-right">
           <Button onClick={handleSave} variant="secondary" rounded="md">Save Changes</Button>
           <Link to="/dashboard" className="inline-block ml-2">
-            <Button variant="outline" rounded="md">Cancel</Button>
+            <Button variant="primary-outline" rounded="md">Cancel</Button>
           </Link>
         </div>
       </div>

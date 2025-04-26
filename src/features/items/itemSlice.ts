@@ -1,10 +1,6 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  GetThunkAPI
-} from "@reduxjs/toolkit";
-import itemService from "@/features/items/itemService";
-import { Item } from "@/lib/interfaces";
+import { createSlice, createAsyncThunk, GetThunkAPI } from "@reduxjs/toolkit";
+import itemService from "../../features/items/itemService";
+
 
 
 /**
@@ -12,7 +8,7 @@ import { Item } from "@/lib/interfaces";
  */
 export type itemState = {
   data: any;
-  isAuthenticated: boolean;
+  isAuthenticated?: boolean;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -22,7 +18,7 @@ export type itemState = {
 /**
  * initial state
  */
-const initialState: itemsState = {
+const initialState: itemState = {
   data: null,
   isError: false,
   isSuccess: false,
@@ -32,7 +28,7 @@ const initialState: itemsState = {
 
 export const updateItem: any = createAsyncThunk(
   "items/update",
-  async (item, thunkAPI: GetThunkAPI<any>) => {
+  async (item: any, thunkAPI: GetThunkAPI<any>) => {
     try {
       const response = await itemService.updateItem(item); 
 
@@ -142,7 +138,7 @@ export const itemSlice = createSlice({
         state.isLoading = true;
         state.isAuthenticated = false;
       })
-      .addCase(updateItem.fulfilled, (state, action: any) => {
+      .addCase(updateItem.fulfilled, (state) => {
         state.isLoading = false;
         state.isAuthenticated = true;
         state.isSuccess = true;
@@ -153,7 +149,6 @@ export const itemSlice = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
-        state.items = null;
         state.isAuthenticated = false; 
       })
       // createItem
@@ -161,7 +156,7 @@ export const itemSlice = createSlice({
         state.isLoading = true;
         state.isAuthenticated = false;
       })
-      .addCase(createItem.fulfilled, (state, action: any) => {
+      .addCase(createItem.fulfilled, (state) => {
         state.isLoading = false;
         state.isAuthenticated = true;
         state.isSuccess = true;
@@ -172,7 +167,6 @@ export const itemSlice = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
-        state.items = null;
         state.isAuthenticated = false; 
       })
       // 
@@ -191,7 +185,6 @@ export const itemSlice = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
-        state.items = null;
         state.isAuthenticated = false; 
       })
       
@@ -210,7 +203,6 @@ export const itemSlice = createSlice({
         state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
-        state.items = null;
         state.isAuthenticated = false; 
       })
   },

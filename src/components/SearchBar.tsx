@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HiOutlineSearchCircle } from "react-icons/hi";
-import Input from '@/components/Input';
-import Button from '@/components/Button';
+import Input from '../components/Input';
+import Button from '../components/Button';
 
 
 interface SearchBarProps {
@@ -22,11 +22,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className = '' }
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+ /* const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter' && onSearch) {
       onSearch(searchTerm);
     }
-  };
+  };*/
 
   return (
     <div className={`flex rounded-md w-full h-full ${className}`}>
@@ -39,7 +39,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch, className = '' }
         rounded="full"
         variant="outline"
         size="lg"
-        onKeyDown={handleKeyDown} // Trigger search on Enter key
+        //onKeyDown={handleKeyDown} // Trigger search on Enter key
       />
       <Button
         variant="primary"

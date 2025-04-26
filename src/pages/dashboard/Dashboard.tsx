@@ -23,7 +23,7 @@ const dashboardLinks = [
   },
 ];
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary to-secondary/60 px-4 py-8 md:px-8">
       <div className="max-w-7xl mx-auto">

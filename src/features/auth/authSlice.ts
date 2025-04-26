@@ -3,8 +3,8 @@ import {
   createAsyncThunk,
   GetThunkAPI
 } from "@reduxjs/toolkit";
-import authService from "@/features/auth/authService";
-import { User } from "@/lib/interfaces";
+import authService from "../../features/auth/authService";
+import { User } from "../../lib/interfaces";
 
 // Get itesms from localStorage
 const userItem: any = localStorage.getItem("user");
