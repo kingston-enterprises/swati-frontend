@@ -290,7 +290,7 @@ export const SignUp = () => {
                   className="w-full"
                   size="lg"
                 >
-                  Sign Ip
+                  Sign Up
                 </Button>
               </div>
             </form>
