@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { User, Boxes, MessageCircle } from 'lucide-react';
 
-const dashboardLinks = [
+export const dashboardLinks = [
   {
     title: 'User Profile',
     description: 'View and edit your profile details.',
@@ -23,7 +23,7 @@ const dashboardLinks = [
   },
 ];
 
-const Dashboard: React.FC = () => {
+export const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary to-secondary/60 px-4 py-8 md:px-8">
       <div className="max-w-7xl mx-auto">
@@ -83,4 +83,3 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;

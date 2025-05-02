@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserChats } from "../../features/chats/chatSlice";
-import ChatWindow from "../../components/messages/ChatWindow";
-import ChatListItem from "../../components/messages/ChatListItem";
+import { ChatWindow } from "../../components/messages/ChatWindow";
+import { ChatListItem } from "../../components/messages/ChatListItem";
 import { ArrowLeft } from "lucide-react";
 import { Chat } from "../../lib/interfaces";
 
-export default function MessagesPage() {
+export const MessagesPage = () => {
   const dispatch = useDispatch();
   const { chats, isLoading } = useSelector((state:any)=> state.chat);
   const [selectedChat, setSelectedChat] = useState<Chat | null>();
 
   useEffect(() => {
-    getUserChats()
-  }, [dispatch]);
+    dispatch(getUserChats())
+  }, []);
 
   const showChat = !!selectedChat;
 

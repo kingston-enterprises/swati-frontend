@@ -18,7 +18,7 @@ interface InputProps {
   ref?: any;
 }
 
-const Input: React.FC<InputProps> = ({
+export const Input: React.FC<InputProps> = ({
   id='',
   type = 'text',
   placeholder = '',
@@ -36,7 +36,8 @@ const Input: React.FC<InputProps> = ({
   ref,
   ...rest
 }) => {
-console.log(ref)
+
+  console.log('ref: ', ref);
   // Base input styles
   let baseStyles = `
     transition-colors
@@ -115,4 +116,3 @@ console.log(ref)
   );
 };
 
-export default Input;

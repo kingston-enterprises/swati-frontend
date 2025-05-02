@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "../../hooks/use-toast";
 import { login } from "../../features/auth/authSlice";
 import Loader from "../../components/custom/Loader";
-import Input from "../../components/Input"; 
-import Button from "../../components/Button"; 
+import { Input } from "../../components/custom/Input"; 
+import { Button } from "../../components/custom/Button"; 
 
 type Props = {};
 

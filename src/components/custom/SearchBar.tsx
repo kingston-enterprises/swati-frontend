@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { HiOutlineSearchCircle } from "react-icons/hi";
-import Input from '../components/Input';
-import Button from '../components/Button';
+
+import { Input } from "./Input";
+import { Button } from "./Button";
 
 
 interface SearchBarProps {

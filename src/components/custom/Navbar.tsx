@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../assets/logo.svg';
-import Button from '../components/Button';
+import logo from '../../assets/logo.svg';
+
+import { Button } from './Button';
+
+
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Menu, X } from 'lucide-react';
-import { logout, reset } from '../features/auth/authSlice';
+import { logout, reset } from '../../features/auth/authSlice';
 
 export const Navbar: React.FC = () => {
   const navigate = useNavigate();

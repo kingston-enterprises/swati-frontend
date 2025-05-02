@@ -169,7 +169,7 @@ export const itemSlice = createSlice({
         state.message = action.payload;
         state.isAuthenticated = false; 
       })
-      // 
+      // getAllItemsWithPagination
       .addCase(getAllItemsWithPagination.pending, (state) => {
         state.isLoading = true;
       })
@@ -187,7 +187,7 @@ export const itemSlice = createSlice({
         state.message = action.payload;
         state.isAuthenticated = false; 
       })
-      
+      //
       .addCase(getUserItemsWithPagination.pending, (state) => {
         state.isLoading = true;
       })

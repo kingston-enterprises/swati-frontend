@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Or your framework's routing
-import Input from '../../components/Input'; // Assuming your custom Input component
-import Button from '../../components/Button'; // Assuming your custom Button component
-import { PhoneInput } from '../../components/custom/PhoneInput'; // Assuming your custom PhoneInput component
+import { Link } from 'react-router-dom';
+import {Input }from '../../components/custom/Input';
+import {Button} from '../../components/custom/Button'; 
+import { PhoneInput } from '../../components/custom/PhoneInput'; 
 import { useSelector } from "react-redux";
 import { formatDate } from "../../lib/utils.ts";
 import person from "@/assets/person.svg";
-
-const Profile: React.FC = () => {
+import { useDispatch } from "react-redux";
+import { updateProfile } from "../../features/profile/profileSlice";
+export const Profile: React.FC = () => {
  
   const { user } = useSelector((state : any) => state.auth);
 
@@ -21,12 +22,38 @@ const Profile: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState(user.phone_number); // Example Eswatini number
   const [privacySetting, setPrivacySetting] = useState('Public');
 
+  const dispatch = useDispatch();
+
   const handleSave = () => {
     // Implement your save logic here
     console.log('Saving profile changes...');
     console.log({ firstName, lastName, gender, dateOfBirth, address, email, phoneNumber, privacySetting });
     console.log(profilePicture);
+    
+   // Prepare the data to send to the updateProfile thunk
+    const updatedUserData = {
+      first_name: firstName,
+      last_name: lastName,
+      gender: gender,
+      date_of_Birth: dateOfBirth,
+      //address: {
+      //  region: address.region,
+      //  city: address.city,
+      //  localArea: address.localArea,
+      //},
+      email: email,
+      phone_number: phoneNumber,
+      // Note: You might need a separate API endpoint for updating privacy settings
+      // and profile pictures, as they often involve different data handling.
+      // If you want to include them here, ensure your backend API is set up to handle them.
+      // privacy_setting: privacySetting,
+      // profile_picture: profilePicture,
+    };
+
+    // Dispatch the updateProfile thunk with the updated user data
+    dispatch(updateProfile(updatedUserData));
   };
+
 
 
 
@@ -123,4 +150,3 @@ const Profile: React.FC = () => {
   );
 };
 
-export default Profile;

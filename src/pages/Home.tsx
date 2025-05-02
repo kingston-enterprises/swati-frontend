@@ -1,8 +1,8 @@
-import { SearchBar } from '../components/SearchBar';
+import { SearchBar } from '../components/custom/SearchBar';
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; 
-
-import { getUserItemsWithPagination } from "../features/items/itemSlice";
+import Loader from "../components/custom/Loader";
+import { getAllItemsWithPagination } from "../features/items/itemSlice";
 import { useToast } from "../hooks/use-toast";
 import ItemsGrid from "../components/custom/ItemsGrid";
 
@@ -18,8 +18,8 @@ const Home: React.FC = () => {
   useEffect(() => {
 
       const fetchItems = async () => {
-    const res = await dispatch(getUserItemsWithPagination()).unwrap(); // optional .unwrap() to handle errors nicely
-console.log('res', res)  
+      dispatch(getAllItemsWithPagination()).unwrap(); 
+    
   };
 
   fetchItems();
@@ -41,7 +41,7 @@ console.log('res', res)
 
   return (
     <div className="flex flex-col bg-white w-full h-full">
-      <div className="h-full mx-auto flex flex-col items-start">
+      <div className="h-full w-full flex flex-col items-start">
         <div className="min-h-1/2 bg-white w-full flex justify-center items-center flex-col mb-5 py-24 sm:py-36 sm:mb-10">
               <h1
                 className="text-4xl sm:text-5xl font-bold text-center text-primary leading-10"
@@ -58,12 +58,12 @@ console.log('res', res)
               <SearchBar />
             </div>
             </div>
-            <div className="border border-black p-10 mb-10 flex w-full">
+            <div className="p-10 mb-10 flex w-full items-center justify-center">
               
               {isLoading ? (
-      <p>Loading items...</p>
+      <Loader />
     ) : (
-       <ItemsGrid items={data}/>
+       <ItemsGrid data={data}/>
     )}
 
 </div>

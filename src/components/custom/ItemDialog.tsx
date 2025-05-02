@@ -1,5 +1,5 @@
 import React from "react";
-import Button from '../../components/Button';
+import { Button } from './Button';
 
 
 type ItemDialogProps = {
@@ -9,7 +9,7 @@ type ItemDialogProps = {
   onChat?: () => void;
 };
 
-const ItemDialog: React.FC<ItemDialogProps> = ({ open, item, onClose, onChat }) => {
+export const ItemDialog: React.FC<ItemDialogProps> = ({ open, item, onClose, onChat }) => {
   if (!open || !item) return null;
 
   return (
@@ -48,6 +48,4 @@ const ItemDialog: React.FC<ItemDialogProps> = ({ open, item, onClose, onChat }) 
     </>
   );
 };
-
-export default ItemDialog;
 

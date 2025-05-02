@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const TopRibbon: React.FC = () => {
+export const TopRibbon: React.FC = () => {
   return (
     <>
       <div className="w-full m-0 p-3 bg-accent text-primary">
@@ -13,4 +13,3 @@ const TopRibbon: React.FC = () => {
     </>);
 };
 
-export default TopRibbon;

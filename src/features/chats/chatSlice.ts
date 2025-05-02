@@ -20,7 +20,7 @@ const initialState: ChatState = {
   message: "",
 };
 
-export const createChat = createAsyncThunk(
+export const startChat : any = createAsyncThunk(
   "chats/create",
   async ({ recipientId, itemId }: { recipientId: string; itemId: string }, thunkAPI: GetThunkAPI<any>) => {
     try {
@@ -34,7 +34,7 @@ export const createChat = createAsyncThunk(
   }
 );
 
-export const getUserChats = createAsyncThunk(
+export const getUserChats : any = createAsyncThunk(
   "chats/getUserChats",
   async (_, thunkAPI: GetThunkAPI<any>) => {
     try {
@@ -46,7 +46,7 @@ export const getUserChats = createAsyncThunk(
   }
 );
 
-export const getChatById = createAsyncThunk(
+export const getChatById : any = createAsyncThunk(
   "chats/getChatById",
   async (chatId: string, thunkAPI: GetThunkAPI<any>) => {
     try {
@@ -73,15 +73,15 @@ export const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createChat.pending, (state) => {
+      .addCase(startChat.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createChat.fulfilled, (state, action: any) => {
+      .addCase(startChat.fulfilled, (state, action: any) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.chat = action.payload;
       })
-      .addCase(createChat.rejected, (state, action: any) => {
+      .addCase(startChat.rejected, (state, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

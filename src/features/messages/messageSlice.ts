@@ -17,7 +17,7 @@ const initialState: MessagesState = {
   message: "",
 };
 
-export const sendMessage = createAsyncThunk(
+export const sendMessage : any = createAsyncThunk(
   "messages/send",
   async (
     { chatId, content }: { chatId: string; content: string },
@@ -34,7 +34,7 @@ export const sendMessage = createAsyncThunk(
   }
 );
 
-export const getMessagesByChatId = createAsyncThunk(
+export const getMessagesByChatId : any = createAsyncThunk(
   "messages/getByChatId",
   async (chatId: string, thunkAPI: GetThunkAPI<any>) => {
     try {

@@ -1,18 +1,24 @@
 import { useState, useMemo } from "react";
-
+import { useNavigate } from 'react-router-dom';
 import { Item } from "../../lib/interfaces";
 import ItemCard from "../../components/custom/ItemCard"; 
-import ItemDialog from "../../components/custom/ItemDialog"; 
+import { ItemDialog } from "../../components/custom/ItemDialog"; 
 import Filters from "../../components/custom/Filter";
+import { useToast } from "../../hooks/use-toast";
+import { startChat } from "../../features/chats/chatSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 interface ItemsGridProps {
-items : Item[]
+data : any
 }
 
-export default function ItemsGrid({items} : ItemsGridProps) {
+export default function ItemsGrid({data} : ItemsGridProps) {
 const [status, setStatus] = useState("");
 const [category, setCategory] = useState("");
 const [condition, setCondition] = useState("");
+  const { user } = useSelector(
+    (state: any) => state.auth
+  );
 
 const resetFilters = () => {
   setStatus("");
@@ -27,7 +33,7 @@ const resetFilters = () => {
   });
   
   const [openDetailModal, setOpenDetailModal] = useState(false);
-const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+const [selectedItem, setSelectedItem] = useState<any>(null);
 
   const [, setOpen] = useState(false);
   const [, setEditItem] = useState<Item | null>(null);
@@ -41,22 +47,22 @@ const [selectedItem, setSelectedItem] = useState<Item | null>(null);
     images: [] as string[] | undefined,
   });
 
-console.log("TEMS: ", items);
+
   const handleDelete = (e: any) => {
   console.log(e);
     };
 
 const filteredItems = useMemo(() => {
-  if (!items) return [];
-
-  return items.filter(
+  if (!data) return [];
+  
+  return data.items.filter(
     (item:any) =>
 
       (!filters.status || item.status === filters.status) &&
       (!filters.category || item.category === filters.category) &&
       (!filters.condition || item.condition === filters.condition)
   );
-}, [items, filters]);
+}, [data, filters]);
 
   const openEditModal = (item: Item) => {
     setEditItem(item);
@@ -72,6 +78,48 @@ const filteredItems = useMemo(() => {
     setOpen(true);
   };
 
+  const dispatch = useDispatch();
+
+  const { toast } = useToast();
+  const navigate = useNavigate();
+ 
+  const handleChatWithSeller = (recipientId: string, itemId: string) => {
+  
+
+    if (!user) {
+    toast({
+      variant: "default",
+      title: "Chat failed",
+      description: "You need to be logged In to chat with the seller",
+    });
+ 
+      return; // Stop the chat creation process
+    }
+console.log(recipientId)
+    // At this point, the user is authenticated.
+    // Dispatch the createChat thunk, passing the necessary data.
+    // Adjust the payload as needed for your createChat thunk.
+    dispatch(startChat({recipientId, itemId})).then(() => {
+        // Handle successful chat creation (e.g., redirect to chat)
+    toast({
+      variant: "default",
+      title: "Chat started succesfully",
+      description: "You can now chat with the seller to complete your purchase",
+    });
+        navigate('/messages'); // Redirect to /messages
+      })
+      .catch((error: any) => {
+        // Handle chat creation error
+    toast({
+      variant: "default",
+      title: "Chat error",
+      description: `error: ${error}`,
+    });
+      });
+
+
+
+};
 
 return (<>
          {/* Filters */}
@@ -87,10 +135,12 @@ return (<>
 />
               {/* Items Grid */}
      
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
   {filteredItems.map((item : any) => (
 <ItemCard
+  key={item._id}
   item={item}
+  currentUserId={user && user._id}
   onEdit={(item : any) => openEditModal(item)}
   onDelete={(id : any) => handleDelete(id)}
   onViewDetails={(item : any) => {
@@ -104,7 +154,7 @@ return (<>
   open={openDetailModal}
   item={selectedItem}
   onClose={() => setOpenDetailModal(false)}
-  onChat={() => console.log("Chat with seller")}
+  onChat={() => handleChatWithSeller(selectedItem.userId._id, selectedItem._id)}
 />
 
       </div>

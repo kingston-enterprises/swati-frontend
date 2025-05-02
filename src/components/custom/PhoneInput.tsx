@@ -3,8 +3,8 @@ import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 import { ChevronsUpDown, CheckIcon } from "lucide-react";
 
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import { Input } from "./Input";
+import { Button } from "./Button";
 
 type PhoneInputProps = Omit<
   React.ComponentProps<"input">,

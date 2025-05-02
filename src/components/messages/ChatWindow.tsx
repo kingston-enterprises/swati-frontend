@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import { sendMessage, getMessagesByChatId } from "../../features/messages/messageSlice";
-//import { Message, Chat } from "../../lib/interfaces";
-//import { RootState } from "../../api/store/store";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+import { sendMessage, getMessagesByChatId } from "../../features/messages/messageSlice";
+import { Input } from "../../components/custom/Input";
+import { Button } from "../../components/custom/Button";
 
-export default function ChatWindow({ chat }: { chat: any }) {
+export const ChatWindow = ({ chat }: { chat: any }) => {
   const dispatch = useDispatch();
   const messages = useSelector((state: any) => state.message.messages);
   const currentUser = useSelector((state: any) => state.auth.user);
@@ -14,7 +12,7 @@ export default function ChatWindow({ chat }: { chat: any }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    //dispatch(getMessagesByChatId(chat._id));
+    dispatch(getMessagesByChatId(chat._id));
   }, [chat._id, dispatch]);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ export default function ChatWindow({ chat }: { chat: any }) {
 
   const handleSend = () => {
     if (!newMsg.trim()) return;
-    //dispatch(sendMessage({ chatId: chat._id, content: newMsg }));
+    dispatch(sendMessage({ chatId: chat._id, content: newMsg }));
     setNewMsg("");
   };
 

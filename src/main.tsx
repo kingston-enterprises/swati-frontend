@@ -9,7 +9,6 @@ import { Toaster } from "./components/ui/toaster.tsx"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-
       <Router>
         <Provider store={store}>
         <Toaster />

@@ -1,8 +1,8 @@
-import Input from "../components/Input";
-import Button from "../components/Button";
+import { Input }from "./Input";
+import {Button }from "./Button";
 
 
-const CustomDialog = ({
+export const CustomDialog = ({
   open,
   setOpen,
   form,
@@ -116,6 +116,4 @@ const CustomDialog = ({
     </div>
   );
 };
-
-export default CustomDialog;
 

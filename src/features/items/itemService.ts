@@ -20,7 +20,7 @@ const updateItem = async (ItemData: Item) => {
       });
  
   if (response.data) {
-    console.log('Item created succesfully: ', response);
+  
   }
 
   return response.data;
@@ -44,7 +44,6 @@ const createItem = async (ItemData: Item | void) => {
       });
  
   if (response.data) {
-    console.log('Item created succesfully: ', response);
   }
 
   return response.data;
@@ -57,11 +56,9 @@ const getAllItemsWithPagination = async () => {
 
   if (response.data) {
    
-    console.log('Items fetched succesfully: ', response);
-
   }
 
-  return response.data;
+  return response.data.data;
 };
 
 
@@ -81,8 +78,7 @@ const getUserItemsWithPagination = async () => {
       });
 
   if (response.data) {
-   
-    console.log('Items fetched succesfully: ', response.data.data);
+  
 
   }
 

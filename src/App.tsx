@@ -1,14 +1,14 @@
-import { BrowserRouter as Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Home from './pages/Home';
-import TopRibbon from './components/custom/TopRibbon';
+import { TopRibbon } from './components/custom/TopRibbon';
 import { Login } from './pages/auth/Login';
 import { SignUp } from './pages/auth/Signup';
-import { Navbar } from './components/Navbar';
-import Dashboard from './pages/dashboard/Dashboard';
-import Profile from './pages/dashboard/Profile';
+import { Navbar } from './components/custom/Navbar';
+import { Dashboard } from './pages/dashboard/Dashboard';
+import { Profile } from './pages/dashboard/Profile';
 import Items from './pages/dashboard/Items';
-import MessagesPage from './pages/chats/MessagesPage';
+import { MessagesPage } from './pages/chats/MessagesPage';
 import { RootState } from './api/store/store';
 
 const PrivateRoute = ({ children }: { children: any }) => {
@@ -24,8 +24,8 @@ const PublicRoute = ({ children }: { children: any }) => {
 
 function App() {
 
-  const { user } = useSelector((state: RootState) => state.auth);
-console.log("User from Redux:", user);
+
+
 
   return (
     <>

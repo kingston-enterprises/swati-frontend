@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"; 
-import { Button } from "../../components/ui/button";
+import {Button} from '../../components/custom/Button'; 
+import Loader from "../../components/custom/Loader";
 import {
   Plus
 } from "lucide-react";
@@ -9,7 +10,7 @@ import { useToast } from "../../hooks/use-toast";
 import ItemsGrid from "../../components/custom/ItemsGrid";
 import { Item } from "../../lib/interfaces";
 import { conditionOptions, categoryOptions, statusOptions } from "../../lib/Options";
-import CustomDialog from "../../components/CustomDialog";
+import { CustomDialog } from "../../components/custom/CustomDialog";
 
 export default function Items() {
   //  const [items, setItems] = useState<Item[]>([]);
@@ -130,10 +131,10 @@ console.log('res', res)
       </div>
 
             <div className="border border-black p-10 mb-10 flex w-full">
-    {isLoading ? (
-      <p>Loading items...</p>
+              {isLoading ? (
+      <Loader />
     ) : (
-       <ItemsGrid items={data}/>
+       <ItemsGrid data={data}/>
     )}
     </div>
     <CustomDialog

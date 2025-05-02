@@ -35,7 +35,7 @@ export interface Item {
 export interface Chat {
   _id: string | undefined;
   participants: string[]; // user IDs
-  item: string | undefined; // item ID
+  item: any | undefined; // item ID
   createdAt: string;
   updatedAt: string;
 }
