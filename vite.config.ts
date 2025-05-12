@@ -1,10 +1,17 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react-swc';
+import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import path from 'path';
 
+const root = path.resolve(__dirname, 'src');
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': root,
+    },
+  },
   plugins: [
     react(),
     tailwindcss(),
@@ -18,11 +25,24 @@ export default defineConfig({
         name: 'Eswatini Shop',
         short_name: 'Eswatini',
         description: 'Eswatini Number 1 Online shop',
-        theme_color: '#ffffff',
+        theme_color: '#5c2626',
         icons: [],
       },
-    })
-
-    ],
-})
+    }),
+  ],
+  server: {
+    host: true,
+    allowedHosts: ['.ngrok-free.app'],
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+  },
+  build: {
+    // This tells Vite to clean `dist/` but not worry about test files,
+    // as they’re never imported into production code anyway.
+    emptyOutDir: true,
+  },
+});
 

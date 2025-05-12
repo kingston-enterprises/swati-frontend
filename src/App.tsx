@@ -1,22 +1,91 @@
-import './App.css'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Home from './pages/Home';
+import { TopRibbon } from './components/custom/TopRibbon';
+import { Login } from './pages/auth/Login';
+import { SignUp } from './pages/auth/Signup';
+import { Navbar } from './components/custom/Navbar';
+import { Dashboard } from './pages/dashboard/Dashboard';
+import { Profile } from './pages/dashboard/Profile';
+import Items from './pages/dashboard/Items';
+import { MessagesPage } from './pages/chats/MessagesPage';
+import { RootState } from './api/store/store';
+
+const PrivateRoute = ({ children }: { children: any }) => {
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
+
+const PublicRoute = ({ children }: { children: any }) => {
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  return !isAuthenticated ? children : <Navigate to="/" />;
+};
 
 function App() {
-  
+
+
+
+
   return (
     <>
-    <div className="min-h-screen w-screen bg-gray-900 flex flex-col items-center justify-center relative px-4">
-    <div className="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-30"
-        style={{backgroundImage: "url('https://images.unsplash.com/photo-1604093882750-3ed498f3178b')"}}> */
-    </div>
- 
-    <h1 className="text-5xl md:text-7xl text-white font-bold mb-8 z-10">Eswatini.shop</h1>
-  <h1 className="text-3xl md:text-5xl text-white  mb-8 z-10">Coming Soon</h1>
-    <p className="text-white text-xl md:text-2xl">
-        We're working hard to bring you something amazing. Stay tuned!
-    </p>
-</div>
+      <TopRibbon />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <SignUp />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/dashboard/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard/items"
+          element={
+            <PrivateRoute>
+              <Items />
+            </PrivateRoute>
+          }
+        />
+
+       <Route
+          path="/messages"
+          element={
+            <PrivateRoute>
+              <MessagesPage />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
+
