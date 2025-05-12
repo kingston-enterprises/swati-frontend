@@ -80,7 +80,7 @@ export const Navbar: React.FC = () => {
           
 
           {/* Drawer */}
-          <div className="fixed top-0 right-0 w-64 min-h-screen bg-white shadow-lg z-50 transform transition-transform duration-300 ease-in-out">
+          <div className="fixed top-0 right-0 w-64 min-h-screen bg-white shadow-lg z-100 transform transition-transform duration-300 ease-in-out">
           {/* Close Button */}
   <div className="flex justify-end p-4">
     <button onClick={toggleMenu} aria-label="Close menu">

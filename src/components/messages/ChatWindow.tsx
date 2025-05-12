@@ -28,9 +28,9 @@ export const ChatWindow = ({ chat }: { chat: any }) => {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="p-4 border-b bg-white">
-        <h2 className="font-semibold text-lg truncate">{chat.item.title}</h2>
-        <p className="text-sm text-gray-500 truncate">
+      <div className="p-4 border-b bg-accent">
+        <h2 className="font-semibold text-lg text-primary truncate">{chat.item.title}</h2>
+        <p className="text-sm text-primary truncate">
           Chat with{" "}
           {chat.participants.find((p: any) => p._id !== currentUser._id)?.first_name || "User"}
         </p>
@@ -46,7 +46,7 @@ export const ChatWindow = ({ chat }: { chat: any }) => {
               className={`max-w-[75%] md:max-w-[60%] px-4 py-2 rounded-lg text-sm break-words ${
                 isCurrentUser
                   ? "bg-blue-500 text-white ml-auto text-right"
-                  : "bg-white text-gray-900 border"
+                  : "bg-white text-primary border"
               }`}
             >
               {msg.content}

@@ -15,6 +15,7 @@ interface InputProps {
   size?: 'sm' | 'md' | 'lg' | undefined | number;
   disabled?: boolean;
   required?: boolean;
+  onKeyDown?: any;
   ref?: any;
 }
 
@@ -33,11 +34,11 @@ export const Input: React.FC<InputProps> = ({
   size = 'md',
   disabled = false,
   required = true,
+  onKeyDown,
   ref,
   ...rest
 }) => {
 
-  console.log('ref: ', ref);
   // Base input styles
   let baseStyles = `
     transition-colors
@@ -105,6 +106,7 @@ export const Input: React.FC<InputProps> = ({
         onChange={onChange}
         className={inputCombinedStyles}
         disabled={disabled}
+              onKeyDown={onKeyDown}
         {...rest}
       />
       {iconRight && (

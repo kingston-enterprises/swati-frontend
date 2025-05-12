@@ -62,7 +62,7 @@ export const Profile: React.FC = () => {
       <div className="container mx-auto max-w-xl bg-white shadow-md rounded-lg overflow-hidden">
         {/* Header */}
         <div className="bg-secondary py-6 px-4 border-b border-primary-accent text-center">
-          <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white shadow-md">
+          <div className="relative w-32 h-32 z-40 mx-auto rounded-full overflow-hidden border-4 border-white shadow-md">
             <img src={person} alt="Profile Picture" className="object-cover w-full h-full" />
             <label htmlFor="profile-picture-upload" className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white cursor-pointer opacity-0 hover:opacity-100 transition-opacity duration-300">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>

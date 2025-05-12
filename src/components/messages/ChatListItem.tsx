@@ -22,9 +22,9 @@ console.log('recipient: ', recipient);
       <div className="flex justify-between items-center">
         <div>
           <div className="text-sm">{recipient?.first_name}</div>
-          <div className="text-xs text-gray-500">{chat.item?.title}</div>
+          <div className="text-xs text-primary">{chat.item?.title}</div>
         </div>
-        <div className="text-xs text-gray-400">
+        <div className="text-xs text-primary">
           {new Date(chat.updatedAt).toLocaleDateString()}
         </div>
       </div>

@@ -190,7 +190,7 @@ useEffect(() => {
                   className="w-full"
                   size="lg"
                 >
-                  Sign Ip
+                  Log In
                 </Button>
               </div>
 
