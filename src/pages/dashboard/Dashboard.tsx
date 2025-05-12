@@ -2,6 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { User, Boxes, MessageCircle } from 'lucide-react';
 
+import { useEffect, useState } from "react";
+import axios from "axios";
+import * as api from "../../api";
+import { useSelector } from "react-redux";
+
+
+const API_URL: string = api.API_URL + "v0/";
+
 export const dashboardLinks = [
   {
     title: 'User Profile',
@@ -24,6 +32,31 @@ export const dashboardLinks = [
 ];
 
 export const Dashboard: React.FC = () => {
+
+
+  const currentUser = useSelector((state: any) => state.auth.user);
+
+
+  const [stats, setStats] = useState({
+    activeListings: 0,
+    newMessages: 0,
+    totalChats: 0,
+    positiveFeedback: 0,
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await axios.get(`${API_URL}users/dashboard/stats/${currentUser._id}`);
+        setStats(response.data);
+      } catch (error) {
+        console.error("Failed to fetch dashboard stats", error);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-secondary to-secondary/60 px-4 py-8 md:px-8">
       <div className="max-w-7xl mx-auto">
@@ -36,24 +69,25 @@ export const Dashboard: React.FC = () => {
         </header>
 
         {/* Quick Stats - could be dynamic later */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
-            <p className="text-lg font-semibold text-primary">12</p>
-            <p className="text-sm text-gray-500">Active Listings</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
-            <p className="text-lg font-semibold text-primary">4</p>
-            <p className="text-sm text-gray-500">New Messages</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
-            <p className="text-lg font-semibold text-primary">7</p>
-            <p className="text-sm text-gray-500">Pending Offers</p>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
-            <p className="text-lg font-semibold text-primary">98%</p>
-            <p className="text-sm text-gray-500">Positive Feedback</p>
-          </div>
-        </div>
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+      <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+        <p className="text-lg font-semibold text-primary">{stats.activeListings}</p>
+        <p className="text-sm text-gray-500">Active Listings</p>
+      </div>
+      <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+        <p className="text-lg font-semibold text-primary">{stats.newMessages}</p>
+        <p className="text-sm text-gray-500">New Messages</p>
+      </div>
+      <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+        <p className="text-lg font-semibold text-primary">{stats.totalChats}</p>
+        <p className="text-sm text-gray-500">Total Chats</p>
+      </div>
+      <div className="bg-white rounded-lg shadow-sm p-4 text-center">
+        <p className="text-lg font-semibold text-primary">{stats.positiveFeedback}%</p>
+        <p className="text-sm text-gray-500">Positive Feedback</p>
+      </div>
+    </div>
+
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

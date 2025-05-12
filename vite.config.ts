@@ -22,8 +22,8 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
       },
       manifest: {
-        name: 'Eswatini Shop',
-        short_name: 'Eswatini',
+        name: 'Swatini.shop',
+        short_name: 'swatini.shop',
         description: 'Eswatini Number 1 Online shop',
         theme_color: '#5c2626',
         icons: [],
