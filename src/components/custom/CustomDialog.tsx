@@ -52,32 +52,32 @@ export const CustomDialog = ({
             onChange={(e:any) => setForm({ ...form, price: e.target.value })}
           />
           <select
-            className="w-full border border-gray-300 p-2 rounded-md"
+            className="w-full border border-accent p-2 rounded-md"
             value={form.category}
             onChange={(e:any) => setForm({ ...form, category: e.target.value })}
           >
-            <option value="">Select Category</option>
+            <option className="border border-accent bg-primary text-secondary" value="">Select Category</option>
             {categoryOptions.map((cat:any) => (
-              <option key={cat}>{cat}</option>
+              <option className="border border-accent bg-primary text-secondary" key={cat}>{cat}</option>
             ))}
           </select>
           <select
-            className="w-full border border-gray-300 p-2 rounded-md"
+            className="w-full border border-accent p-2 rounded-md"
             value={form.condition}
             onChange={(e:any) => setForm({ ...form, condition: e.target.value })}
           >
-            <option value="">Select Condition</option>
+            <option className="border border-accent bg-primary text-secondary" value="">Select Condition</option>
             {conditionOptions.map((cond:any) => (
-              <option key={cond}>{cond}</option>
+              <option className="border border-accent bg-primary text-secondary" key={cond}>{cond}</option>
             ))}
           </select>
           <select
-            className="w-full border border-gray-300 p-2 rounded-md"
+            className="w-full border border-accent p-2 rounded-md"
             value={form.status}
             onChange={(e:any) => setForm({ ...form, status: e.target.value })}
           >
             {statusOptions.map((s:any) => (
-              <option key={s}>{s}</option>
+              <option className="border border-accent bg-primary text-secondary" key={s}>{s}</option>
             ))}
           </select>
 
